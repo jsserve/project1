@@ -1,0 +1,46 @@
+footer{
+    padding-top: 40px;
+    color: #97989a;
+    /*margin-top: calc(100% - 100px);*/
+  
+}
+
+.footer-li{
+    border-top: 1px solid #dad9dd;
+    margin-top: 10px;
+}
+
+.footer-li a{
+    color: #97989a;
+}
+
+.footer-li p:first-child{
+    margin-top: 15px;
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+
+
+ul.privacy{
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+ul.privacy li:first-child, ul.privacy li:nth-child(2){
+    border-right: 1px solid #97989a;
+}
+
+footer {
+  width: 100%;
+  height: 90px;
+  clear: both;
+}
+
+
+
+@media screen and (max-width: 950px) {
+    footer{
+        float: left;
+    }
+}

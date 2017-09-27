@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 640 480" enable-background="new 0 0 640 480" xml:space="preserve">
+<g>
+	<circle fill="#58595B" cx="319.8" cy="240.7" r="299.1"/>
+	<g>
+		<rect x="257.6" y="384.1" fill="#FFFFFF" width="124.4" height="43.3"/>
+		<path fill="#FFFFFF" d="M319.8,278.3c18.9,0,34.5-13.9,37.2-32.1h-74.5C285.2,264.4,300.9,278.3,319.8,278.3z"/>
+		<path fill="#FFFFFF" d="M319.8,203c-18.9,0-34.5,13.9-37.2,32.1H357C354.3,217,338.6,203,319.8,203z"/>
+		<path fill="#FFFFFF" d="M246.4,372.9h146.7v54.5h58.1V246.3h-83c-2.8,24.3-23.5,43.2-48.5,43.2c-25,0-45.7-18.9-48.5-43.2h-83
+			v181.1h58.1V372.9z"/>
+		<rect x="257.6" y="54" fill="#FFFFFF" width="124.4" height="43.3"/>
+		<path fill="#FFFFFF" d="M271.3,235.1c2.8-24.3,23.5-43.2,48.5-43.2c25,0,45.7,18.9,48.5,43.2h83V54h-58.1v54.5H246.4V54h-58.1
+			v181.1H271.3z"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,120 @@
+<ng-sidebar-container [animate]="'true'">
+  <!--<ng-sidebar [(opened)]="_opened" [mode]="'over'" [position]="'left'" [dock]="false" [dockedSize]="'50px'" [autoCollapseHeight]="500"
+    [autoCollapseWidth]="500" [showBackdrop]="false" [animate]="true" [sidebarClass]="'main-sidebar'" [ariaLabel]="'Main Menu'">
+    <img id="site-logo" src="/assets/images/menu-logo.png" alt="logo" class="image-responsive logo-img" style="">
+    <ul class="menu-item-list">
+      <li [routerLink]="['/home']" [routerLinkActive]="['is-active']"><span><i class="fa fa-home fa-2x" aria-hidden="true"></i><br>HOME</span></li>
+      <!-- <li [routerLink]="['/team']" [routerLinkActive]="['is-active']"><span><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>TEAM</span></li>
+      <li [routerLink]="['/matches']" [routerLinkActive]="['is-active']"><span><i class="fa fa-futbol-o fa-2x" aria-hidden="true"></i><br>MATCHES</span></li>
+      <li [routerLink]="['/videos']" [routerLinkActive]="['is-active']"><span><i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>VIDEOS</span></li>
+      <li [routerLinkActive]="['is-active']"><span><i class="fa fa-sliders fa-2x" aria-hidden="true"></i><br>PLAYLIST</span></li>
+      <li [routerLink]="['/clubs']" [routerLinkActive]="['is-active']"><span><i class="fa fa-shield fa-2x" aria-hidden="true"></i><br>CLUBS</span></li>
+      <li [routerLinkActive]="['is-active']" class="search-option"><span><i class="fa fa-search fa-2x" aria-hidden="true"></i><br>Search</span>
+
+      </li>
+      <!-- <li [routerLinkActive]="['is-active']"><span><i class="fa fa-comment fa-2x" aria-hidden="true"></i><br>Help</span></li> 
+      <li (click)="logout()"><span><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><br>LOGOUT</span></li>
+    </ul>
+
+  </ng-sidebar>
+-->
+  <header class="demo-header">
+    <!--<button type="button" class="navbar-toggle collapsed left-sidebar-toggle" (click)="_toggleSidebar()" style="margin-top:15px">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+-->
+    <!--<ng-sidebar [(opened)]="_second_opened" [mode]="'push'"  [position]="'top'" [dock]="false" [dockedSize]="'50px'" [autoCollapseHeight]="500"
+    [autoCollapseWidth]="500" [showBackdrop]="false" [animate]="true" [sidebarClass]="'main-sidebar'" [ariaLabel]="'Main Menu'">-->
+    <div class="col-md-12">
+      <nav class="navbar navbar-positive navbar-fixed-top">
+
+        <div class="">
+
+          <div class="navbar-header">
+            <span class="pull-left">
+              <img id="site-logo" src="/assets/images/menu-logo.png" alt="logo" class="image-responsive logo-img" style="">
+            </span>
+            <span class="navbar-brand" id="site-title">Navbar</span>
+
+            <!--<button (click)="_toggleSidebar()" class="demo-header__toggle">Toggle sidebar</button>-->
+            <button type="button" class="navbar-toggle collapsed" (click)="toggleState()" style="margin-top:15px">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+          </div>
+
+          <div class="collapse navbar-collapse" [ngClass]="{ 'in': isIn }">
+
+
+            <ul class="menu-item-list list-inline pull-left">
+
+              <!-- <li [routerLink]="['/home']" [routerLinkActive]="['is-active']"><span><i class="fa fa-home fa-2x" aria-hidden="true"></i><br>HOME</span></li>-->
+
+              <li [routerLink]="['/videos']" [routerLinkActive]="['is-active']"><span><i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>VIDEOS</span></li>
+              <li [routerLink]="['/playlist']" [routerLinkActive]="['is-active']"><span><i class="fa fa-sliders fa-2x" aria-hidden="true"></i><br>PLAYLIST</span></li>
+              <!-- <li [routerLink]="['/clubs']" [routerLinkActive]="['is-active']"><span><i class="fa fa-shield fa-2x" aria-hidden="true"></i><br>CLUBS</span></li>
+      <li [routerLinkActive]="['is-active']" class="search-option"><span><i class="fa fa-search fa-2x" aria-hidden="true"></i><br>SEARCH</span>-->
+              <li *ngIf="isCoachOrAnalyst" [routerLink]="['/players']" [routerLinkActive]="['is-active']"><span><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>PLAYERS</span></li>
+              <li *ngIf="admin" [routerLink]="['/matches']" [routerLinkActive]="['is-active']"><span><i class="fa fa-futbol-o fa-2x" aria-hidden="true"></i><br>MATCHES</span></li>
+              <li *ngIf="isCoachOrAnalyst" [routerLink]="['/videos/upload']" [routerLinkActive]="['is-active']" class="search-option"><span><i class="fa fa-upload fa-2x" aria-hidden="true"></i><br>UPLOAD</span>
+              </li>
+              <!-- <li [routerLinkActive]="['is-active']"><span><i class="fa fa-comment fa-2x" aria-hidden="true"></i><br>Help</span></li> -->
+              <!--  <li (click)="logout()"><span><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><br>LOGOUT</span></li>-->
+            </ul>
+            <ul class="list-inline pull-right header-menu-items">
+
+              <!--  <li>
+                <img src="assets/images/bubble.png" alt="bubble" />
+              </li>
+              <li>
+                <img src="assets/images/bell.png" alt="bubble" />
+              </li>-->
+              <li class="profile-name">
+                <div class="dropdown" dropdown [dropdownToggle]="false">
+                  
+                  <button class="btn dropdown-toggle btn-usr" type="button" dropdown-open><img src="assets/images/img9.png" class="img img-responsive img-rounded profile-picture col-md-3"> <span class="col-md-9 name-profile">{{getUserDisplayName()}}</span>
+									</button>
+                  <ul class="dropdown-menu profile-options">
+                    <li [routerLink]="['/profile/main']">Profile</li>
+                    <li *ngIf="clubid && !isAdmin" [routerLink]="['/club/',clubid]">My Club</li>
+                    <li (click)="logout()">Logout</li>
+                  </ul>
+                </div>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--<div class="col-md-12">
+      <ul class="list-inline pull-right">
+        <li>
+          <button class="btn btn-upload-custom">Upload</button>
+        </li>
+        <li>
+          <img src="assets/images/bubble.png" alt="bubble" />
+        </li>
+        <li>
+          <img src="assets/images/bell.png" alt="bubble" />
+        </li>
+        <li>
+          <button class="btn btn-usr">
+            Jon olson <span class="caret"></span>
+          </button>
+        </li>
+      </ul>
+
+    </div>-->
+    <!--</ng-sidebar>-->
+  </header>
+  <section class="demo-contents">
+    <router-outlet></router-outlet>
+  </section>
+  <app-footer></app-footer>
+</ng-sidebar-container>

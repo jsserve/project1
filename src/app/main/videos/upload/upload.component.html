@@ -1,0 +1,252 @@
+<div class="inner" *ngIf="uploading">
+  <div class="center-all">
+
+    <div class="uploading">Uploading.. {{progress}}% <i class="fa fa-spinner fa-spin" aria-hidden="true"></i></div>
+    <div class="bar">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100" [style.width]="progress + '%'">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Upload to Sportanalysis.tv</div>
+  <div class="panel-body">
+
+
+    <div class="row container">
+
+      <div class="form-group col-sm-12 text-center" id="upload-area">
+        <label for="attachments" style="width:100%">
+            <div class="dropzone_cont" id="dropzone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)">
+              <img src="/assets/icons/upload.svg" alt="upload" class="image-responsive upload-icon">
+              <h4>Select the file to upload</h4>
+              <p class="or">or</p>
+              <p class="drag-file">
+                <img src="assets/images/drag.png" alt="Drag file" /> Drag file here
+              </p>
+              <span *ngIf="selectedFile.name">{{selectedFile.name}} - {{getSizeInMB(selectedFile.size)}}</span>
+              <span *ngIf="!selectedFile.name">&nbsp;
+                <span *ngIf="!f.form.valid && f._submitted" style="color:red">Please select Video file</span>
+              </span>
+            </div>
+            <input type="file" (change)="onSelectFile($event)" name="attachments" [(ngModel)]="attachments" id="attachments" style="display:none">
+          </label>
+      </div>
+      <form #form class="form-inline upload-inputs col-xs-12  col-sm-8 text-center" id="video-metadata" #f="ngForm" (ngSubmit)="onSubmit(f)"
+        novalidate [ngClass]="{'submited' : f._submitted}">
+        <div class="col-12 margin-bottom-10">
+          <div class="form-group circle-buttons text-center" [ngClass]="{'circle-margin': isAdmin}">
+            <md-radio-group required [(ngModel)]="type" name="type" class="md-inputs">
+              <md-radio-button value="Match">Match</md-radio-button>
+              <md-radio-button value="Event">Event</md-radio-button>
+              <md-radio-button value="Training">Training</md-radio-button>
+              <md-radio-button value="Telestration">Telestration</md-radio-button>
+            </md-radio-group>
+          </div>
+        </div>
+        <div class="row margin-bottom-10">
+          <div class="form-group" *ngIf="(type == 'Training')">
+            <label class="control-label text-left" for="title">Title:</label>
+            <input type="title" [(ngModel)]="name" class="form-control" name="title" id="video-name" placeholder="Video Name" required>
+          </div>
+          <div class="form-group">
+            <label class="control-label text-left" for="title">Date of event:</label>
+            <input [(ngModel)]="date" class="form-control" name="date" ngui-datetime-picker date-only="true" placeholder="Date of event"
+              required>
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Club 1:</label>
+            <ng2-completer #club="ngModel" id="selectClub" [(ngModel)]="clubName" (ngModelChange)="onChangeofClub1()" name="clubName"
+              placeholder="Club 1" [datasource]="clubData" [minSearchLength]="3" required></ng2-completer>
+
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Club 2:</label>
+            <ng2-completer #club="ngModel" id="selectClub2" [(ngModel)]="clubName2" (ngModelChange)="onChangeofClub2()" name="clubName2"
+              placeholder="Club 2" [datasource]="clubData" [minSearchLength]="3" required></ng2-completer>
+
+          </div>
+          <div class="form-group">
+            <label class="control-label text-left" for="title">Season:</label>
+
+            <select name="season" class="form-control" [(ngModel)]="season">
+              <option value="null">Select Season</option>
+              <option>2015/2016</option>
+              <option>2016/2017</option>
+              <option>2017/2018</option>
+              <option>2018/2019</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="row margin-bottom-10">
+          <!-- <div class="form-group">
+            <label class="control-label text-left" for="title">Season:</label>
+            <input type="text" [(ngModel)]="season" class="form-control" name="season" id="season" placeholder="Season">
+          </div> -->
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Competition:</label>
+            <input type="text" [(ngModel)]="competition" class="form-control" name="competition" id="competition" placeholder="Competition">
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Description:</label>
+            <input type="text" [(ngModel)]="description" class="form-control" name="description" id="description" placeholder="Description">
+          </div>
+        </div>
+
+        <div class="row margin-bottom-10">
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Tactics of team 1:</label>
+            <input type="text" [(ngModel)]="tacticsTeam1" class="form-control" name="tacticsTeam1" id="tacticsTeam1" placeholder="Tactics of team 1">
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Tactics of team 2:</label>
+            <input type="text" [(ngModel)]="tacticsTeam2" class="form-control" name="tacticsTeam2" id="tacticsTeam2" placeholder="Tactics of team 2">
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Score of team 1:</label>
+            <input type="text" [(ngModel)]="scoreTeam1" class="form-control" name="scoreTeam1" id="scoreTeam1" placeholder="Score of team 1">
+          </div>
+          <div class="form-group" *ngIf="(type != 'Training')">
+            <label class="control-label text-left" for="title">Score of team 2:</label>
+            <input type="text" [(ngModel)]="scoreTeam2" class="form-control" name="scoreTeam2" id="scoreTeam2" placeholder="Score of team 2">
+          </div>
+        </div>
+
+
+
+        <div class="row margin-bottom-10">
+          <div class="form-group" *ngIf="(type == 'Match' || type == 'Event' || type == 'Telestration' )">
+            <label class="control-label text-left" for="title">Team 1:</label>
+            <!--<ng2-completer id="selectTeam1" #club="ngModel" [(ngModel)]="team1" name="team1" placeholder="Team 1" [datasource]="clubData"
+              [minSearchLength]="3"></ng2-completer>-->
+            <select name="team1" #team class="form-control" [(ngModel)]="team1">
+              <option value="null">Select Team 1</option>
+              <option *ngFor="let team of clubTeams1" [ngValue]="team._id">{{team.name}}</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="(type == 'Match' || type == 'Event' || type == 'Telestration' )">
+            <label class="control-label text-left" for="title">Team 2:</label>
+            <!--<ng2-completer #club="ngModel" id="selectTeam2" [(ngModel)]="team2" name="team2" placeholder="Team 2" [datasource]="clubData"
+              [minSearchLength]="3"></ng2-completer>-->
+            <select name="team2" #team class="form-control" [(ngModel)]="team2">
+              <option value="null">Select Team 2</option>
+              <option *ngFor="let team of clubTeams2" [ngValue]="team._id">{{team.name}}</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="upload-div">
+          <button class="btn btn-round btn-blue-outline btn-upload" type="submit" [disabled]="!f.form.valid && f._submitted">Upload Video</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<div class="panel panel-default video-area" *ngIf="false">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <div class="video-name">
+        <select class="select-box">
+                <option>Video name</option>
+                <option>1</option>
+              </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="event-date">
+        <select class="select-box">
+                <option>Date of event</option>
+                <option>1</option>
+            </select>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+
+    <div class="events">
+      <div class="col-md-8 col-sm-12">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <h4> First goal </h4>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <h4> Thursday, 15 June 2017 </h4> <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="events">
+      <div class="col-md-8 col-sm-12">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <h4> First goal </h4>
+      </div>
+
+      <div class="col-md-4 col-sm-12">
+        <h4> Thursday, 15 June 2017 </h4> <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="events">
+      <div class="col-md-8 col-sm-12">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <h4> First goal </h4>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <h4> Thursday, 15 June 2017 </h4> <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal #uploadSucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="OnClickOfSuccessVideoUpload()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #uploadErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" [routerLink]="['/home']" (click)="uploadErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #ErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" [routerLink]="['/home']" (click)="ErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

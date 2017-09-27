@@ -1,0 +1,43 @@
+.gm-icon {
+  background-size: cover;
+  width: 1em;
+  height: 1em;
+  display: table-cell;
+  text-indent: -9999px;
+}
+
+.gm-icon-upload {
+  background-image: url(upload.svg);
+}
+
+.gm-icon-video {
+  background-image: url(video.svg);
+}
+
+.gm-icon-team {
+  background-image: url(team.svg);
+}
+
+.gm-icon-pitch {
+  background-image: url(pitch.svg);
+}
+
+.gm-icon-2x {
+  width: 2em;
+  height: 2em;
+}
+
+.gm-icon-3x {
+  width: 3em;
+  height: 3em;
+}
+
+.gm-icon-4x {
+  width: 4em;
+  height: 4em;
+}
+
+.gm-icon-5x {
+  width: 5em;
+  height: 5em;
+}

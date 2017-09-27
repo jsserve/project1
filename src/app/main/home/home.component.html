@@ -1,0 +1,35 @@
+<button (click)="firstModal.open()">Success modal</button>
+<modal #firstModal>
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+        <p>
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </p>
+        <p>
+            Success
+        </p>
+    </modal-content>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="firstModal.close()">Ok</button>
+    </modal-footer>
+</modal>
+
+<button (click)="secondModal.open()">Error modal</button>
+<modal #secondModal class="error-modal">
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+        <p>
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </p>
+        <p>
+            Error
+        </p>
+    </modal-content>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="secondModal.close()">Ok</button>
+    </modal-footer>
+</modal>

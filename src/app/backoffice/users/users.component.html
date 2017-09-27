@@ -1,0 +1,138 @@
+<div class="container" style="margin-top:10px;">
+    <h3>User list</h3>
+    <div class="adduser">
+        <button class="pull-right" [routerLink]="['/backoffice/add-user']">Add User</button>
+    </div>
+    <md-tab-group>
+        <md-tab label="Active users">
+            <h3>Active users</h3>
+            <div class="row">
+                <div class="col-md-3 no-padding" style="margin-right: 5px;">
+                    <label>Club: </label>
+                    <select name="searchClub" #searchclub class="form-control" (change)="onChangeofActivatedSearch()" [(ngModel)]="search.ActivatedClub">
+                  <option value="null">All </option>
+                  <option *ngFor="let club of AllClubList" [ngValue]="club._id">{{club.name}}</option>
+                </select>
+                </div>
+                <div class="col-md-3 no-padding">
+                    <label>Team: </label>
+                    <select name="searchTeam" #searchclub class="form-control" (change)="onChangeofActivatedSearch()" [(ngModel)]="search.ActivatedTeam">
+                  <option value="null">All </option>
+                  <option *ngFor="let team of teamsList" [ngValue]="team._id">{{team.name}}</option>
+                </select>
+                </div>
+            </div>
+            <div>
+
+                <ngx-datatable #activetable class="material" [columnMode]="'standard'" [rows]="usersList" (onRowsUpdate)='updateRows()'>
+                    <ngx-datatable-column [flexGrow]="3" name="Email" prop="email"> </ngx-datatable-column>
+                    <ngx-datatable-column name="First Name" [width]="80" prop="firstName"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Last Name" [width]="80" prop="lastName"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Club" [width]="70" prop="club"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Team(s)" [width]="70" prop="teams"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Club Function" prop="clubFunction"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Phone Number" prop="phone"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Role" [width]="90">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <span *ngIf="row.role==1">Superadmin</span>
+                            <span *ngIf="row.role==2">Club Admin</span>
+                            <span *ngIf="row.role==3">Analyst</span>
+                            <span *ngIf="row.role==4">Coach</span>
+                            <span *ngIf="row.role==5">Player</span>
+                            <span *ngIf="row.role==6">Viewer</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <i class="fa fa-ban deactive" aria-hidden="true" (click)="deactivateUser(row._id)"></i>
+                            <i class="fa fa-pencil edit" aria-hidden="true" [routerLink]="['/backoffice/edit-user', row._id]"></i>
+                            <i class="fa fa-trash delete" aria-hidden="true" (click)="deleteUser(row._id)"></i>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </md-tab>
+        <md-tab label="Deactive Users">
+            <h3>Deactive Users</h3>
+
+            <div class="row">
+                <div class="col-md-3 no-padding" style="margin-right: 5px;">
+                    <label>Club: </label>
+                    <select name="searchClub" #searchclub class="form-control" (change)="onChangeofDeactivatedSearch()" [(ngModel)]="search.DeactivatedClub">
+                  <option value="null">All </option>
+                  <option *ngFor="let club of AllClubList" [ngValue]="club._id">{{club.name}}</option>
+                </select>
+                </div>
+                <div class="col-md-3 no-padding">
+                    <label>Team: </label>
+                    <select name="searchTeam" #searchclub class="form-control" (change)="onChangeofDeactivatedSearch()" [(ngModel)]="search.DeactivatedTeam">
+                  <option value="null">All </option>
+                  <option *ngFor="let team of teamsList" [ngValue]="team._id">{{team.name}}</option>
+                </select>
+                </div>
+            </div>
+            <div>
+                <ngx-datatable #deactivetable class="material" [columnMode]="'standard'" [rows]="unApprovedUsers">
+                    <ngx-datatable-column [flexGrow]="3" name="Email" prop="email"> </ngx-datatable-column>
+                    <ngx-datatable-column name="First Name" [width]="80" prop="firstName"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Last Name" [width]="80" prop="lastName"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Club" [width]="70" prop="club"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Team(s)" [width]="70" prop="teams"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Club Function" prop="clubFunction"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Phone Number" prop="phone"> </ngx-datatable-column>
+                    <ngx-datatable-column name="Role" [width]="90">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <span *ngIf="row.role==1">Superadmin</span>
+                            <span *ngIf="row.role==2">Club Admin</span>
+                            <span *ngIf="row.role==3">Analyst</span>
+                            <span *ngIf="row.role==4">Coach</span>
+                            <span *ngIf="row.role==5">Player</span>
+                            <span *ngIf="row.role==6">Viewer</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <i class="fa fa-check-square active" aria-hidden="true" (click)="activateUser(row._id)"></i>
+                            <i class="fa fa-pencil edit" aria-hidden="true" [routerLink]="['/backoffice/edit-user', row._id]"></i>
+                            <i class="fa fa-trash delete" aria-hidden="true" (click)="deleteUser(row._id)"></i>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+
+        </md-tab>
+    </md-tab-group>
+</div>
+
+<modal #userSucessModal>
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+        <p>
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </p>
+        <p>
+            {{successmsg}}
+        </p>
+    </modal-content>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="userSucessModal.close()">Ok</button>
+    </modal-footer>
+</modal>
+<modal #userErrorModal class="error-modal">
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+        <p>
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </p>
+        <p>
+            {{errormsg}}
+        </p>
+    </modal-content>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="userErrorModal.close()">Ok</button>
+    </modal-footer>
+</modal>

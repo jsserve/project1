@@ -1,0 +1,508 @@
+.video-list-thumbs>li {
+  margin-bottom: 12px;
+}
+
+.video-list-thumbs>li>a {
+  display: block;
+  position: relative;
+  background-color: #111;
+  color: #fff;
+  padding: 8px;
+  border-radius: 3px;
+  transition: all 500ms ease-in-out;
+  border-radius: 4px;
+}
+
+.video-list-thumbs>li>a:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+  text-decoration: none
+}
+
+.video-list-thumbs h2 {
+  bottom: 0;
+  font-size: 14px;
+  /*height: 14px;*/
+  margin: 8px 0 0;
+}
+
+.video-ss{
+  margin: auto;
+}
+
+.list-view .list-inline>li{
+  max-width: 250px;
+  width: 100%;
+}
+
+.first-team{
+  padding-right: 20px;
+}
+
+.second-team{
+  padding-left: 20px;
+}
+ 
+.container.videos-list{
+  max-width: 1680px;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.video-white-bg{
+  padding: 1px;
+  background: white;
+}
+
+.video-list-thumbs .glyphicon-play-circle {
+  font-size: 60px;
+  opacity: 0.6;
+  position: absolute;
+  right: 39%;
+  top: 31%;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+  transition: all 500ms ease-in-out;
+}
+
+.video-list-thumbs>li>a:hover .glyphicon-play-circle {
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+
+.video-list-thumbs .duration {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  left: 12px;
+  line-height: 13px;
+  padding: 2px 3px 1px;
+  position: absolute;
+  top: 12px;
+  transition: all 500ms ease;
+}
+
+.video-list-thumbs>li>a:hover .duration {
+  background-color: #000;
+}
+
+.date {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+
+.all-videos .col-lg-4, .all-videos .col-lg-4, .all-videos .col-sm-6, .all-videos .col-xs-12{
+  max-width: 320px;
+  width: 100%;
+}
+.all-videos .list-view{
+  max-width: 100%;
+  
+}
+.all-videos .list-view img{margin: 0;display: inline-block;}
+.all-videos .list-view span.duration{bottom: 10px;}
+.all-videos .list-view span.durationn{left: 24%;right: auto;bottom: 10px;}
+.all-videos .list-view .teams{left:8%;top: 45%;}
+.all-videos .list-view .list-view-sideidetail{width: calc(100% - 320px);float: right;background-color: #fff;padding:80 40px;display: block;min-height: 240px;}
+.all-videos .list-view .list-view-sideidetail .video-white-bg .date ul.list-inline{position: relative;}
+.all-videos .list-view .list-view-sideidetail .video-white-bg .date ul.list-inline li i{top: 5px;}
+
+
+.all-videos .col-lg-4, .all-videos .col-lg-4, .all-videos .col-sm-6, .all-videos .col-xs-12{
+  margin-bottom: 5px;
+}
+
+
+.duration{
+    position: absolute;
+    bottom: 85px;
+    color: white;
+    left: 30px;
+    font-size: 12px;
+}
+
+.play-btn{
+    position: absolute;
+    left: 145px;
+    color: white;
+    font-size: 30px;
+    top: 95px;
+    opacity: 0.4;
+  display: none;
+}
+
+div.teams{
+    position: absolute;
+    left: 22%;
+    bottom: 53%;
+    font-size: 28px;
+    color: white;
+}
+
+div.teams td{
+  padding: 10px;
+}
+
+div.teams img{
+  max-width: 30px;
+  width: 100%;
+}
+
+.video-ss{
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+h2.video-title{
+  font-size: 16px;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+}
+
+.list-view h2.video-title{
+  text-align: left;
+  font-size: 14px;
+}
+
+.list-view li.views-date{
+  font-size: 12px;
+}
+
+.list-view li.views-date i{
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 9px;
+}
+
+.list-view li.result{
+  padding-left: 15px;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+div.date{
+  text-align: center;
+  text-decoration: none;
+  color: gray;
+  font-style: normal;
+}
+
+div.date ul.list-inline li:nth-child(2) i{
+  font-size: 8px;
+  position: absolute;
+  margin-left: -3px;
+  bottom: 18px;
+}
+
+.durationn{
+    position: absolute;
+    bottom: 85px;
+    color: white;
+    right: 30px;
+    background: rgba(0, 0, 0, .3);
+    padding: 1px 3px 1px 3px;
+    font-size: 12px;
+}
+
+.viewbtns{
+  font-size: 20px;
+    color: #000;
+    margin-left: 1.8%;
+    cursor: pointer;
+    margin-top: -2px;
+}
+.viewbtns i{
+  margin: 0px 10px;
+}
+.viewbtns i.active{
+ color: green;
+}
+
+
+
+/*
+@media (max-width: 1339px) {
+ 
+}
+
+@media (max-width: 1099px) {
+  div.teams{
+    left: 45px;
+    bottom: 140px; 
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  div.teams{
+    left: 65px;
+    bottom: 150px; 
+  }
+  
+}
+
+@media (max-width: 479px) {}
+
+*/
+
+.all-videos{
+  /* max-height: 680px; */
+
+}
+
+h3.recent{
+  font-size: 18px;
+  padding-left: 30px;
+}
+ 
+.one-team{
+    max-width: 60px;
+    position: absolute;
+    bottom: 55%;
+    left: 40%;
+}
+
+.upload-search{
+  max-width: 63%;
+  margin: auto;
+ text-align: center;
+
+}
+
+.upload-search:first-child{
+  padding-bottom: 20px;
+}
+
+.upload-search a{
+  max-width: 220px;
+  width: 100%;
+  color: white;
+  padding: 6px 10px 6px 10px;
+  background: #009cff;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+}
+
+.upload-search input{
+  max-width: 320px;
+  width: 100%;
+  margin: auto;
+  margin-top: -7px;
+}
+
+.player-name{
+  position: absolute;
+    top: 5px;
+    color: white;
+    right: 30px;
+    background: rgba(0, 0, 0, .3);
+    padding: 1px 3px 1px 3px;
+    font-size: 12px;
+}
+
+.list-view{
+  background: white;
+  padding: 3 15px 3px 15px;
+}
+
+.list-view a img{
+  max-width: 60px;
+  width: 100%;
+}
+
+.list-view li.teams{
+  color: #337ab7;
+  left: 0;
+  top: 0;
+  position: relative;
+}
+
+.list-view li.type-duration span:first-child{
+ /* position: absolute;
+  top: 35px; */
+}
+
+.list-view div.date ul.list-inline li:nth-child(3) i{
+  bottom: 30px;
+  font-size: 8px;
+  position: absolute;
+}
+
+.list-view div.date ul.list-inline li:last-child{
+  padding-left: 15px;
+}
+
+.list-view date i{
+  font-size: 10px;
+}
+
+.all-videos .list-view .teams, .all-videos .list-view .video-info-list{
+  left: 0;
+  top: 0;
+
+}
+
+
+
+.list-view .list-inline.video-list-details > li:first-child, .list-view .list-inline.video-list-details > li:last-child{
+  max-width: 100px;
+}
+
+.list-view .list-inline.video-list-details > li:nth-child(2){
+  max-width: 150px;
+}
+
+.list-view .list-inline.video-list-details > li:nth-child(4), .list-view .list-inline.video-list-details > li:nth-child(5){
+  max-width: 180px;
+}
+
+.list-view .list-inline.video-list-details > li:nth-child(6){
+  max-width: 150px;
+}
+
+.list-view .video-info-list i:first-child, .list-view .video-info-list i:nth-child(2){
+  padding-right: 15px;
+}
+
+.date .list-inline .video-delete{
+  padding-right: 10px;
+}
+
+
+.list-view .teams-result img{
+  max-width: 35px;
+  width: 100%;
+}
+
+.list-view .teams td img{
+  max-width: 65px;
+}
+
+.all-videos .list-view span.durationn{
+  left: 35%;
+}
+
+.upload-search{
+  margin-left: 10px;
+}
+
+.upload-search span{
+  float: left;
+}
+
+.upload-search input{
+  float: left;
+  margin-left: 50px;
+}
+.video-delete{
+  color: red;
+}
+.grid-delete-btn {
+    font-size: 16px !important;
+    margin-bottom: -2px;
+}
+@media (max-width: 1333px) {
+    div.teams{
+      left: 20%;
+      bottom: 55%;
+   
+    }
+    .duration{
+      bottom: 105px;
+      left: 25px;
+    }
+    .durationn{
+      bottom: 105px;
+      right: 25px;
+    }
+}
+
+@media (max-width: 997px) {
+    div.teams{
+      left: 15%;
+      bottom: 60%;
+     /* font-size: 12px; */
+    }
+    
+}
+
+@media (max-width: 989px) {
+    div.teams{
+      left: 15%;
+      bottom: 55%;
+   
+    }
+
+    .all-videos .list-view .teams, .all-videos .list-view .video-info-list{
+      font-size: 12px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    div.teams{
+      left: 20%;
+      bottom: 55%;
+     /* font-size: 12px; */
+    }
+}
+
+@media (max-width: 576px) {
+    div.teams{
+       left: 20%;
+      bottom: 53%;
+      font-size: 28px;
+    }
+
+    .list-view .col-sm-6{
+      margin: auto;
+      text-align: center;
+    }
+
+    .list-view .duration{
+      left: 50px;
+    }
+
+    .list-view span.durationn{
+      left: 68%;
+    }
+
+    .list-view .teams td  img{
+      max-width: 33px;
+    }
+
+    .all-videos.list-view  .teams, .all-videos .list-view  .video-info-list{
+      padding-top: 2px;
+    }
+}
+
+@media (max-width: 420px) {
+   div.teams{
+      left: 17%;
+      bottom: 58%;
+      font-size: 12px;
+    }
+}
+
+@media (min-width:320px) and (max-width: 480px) {
+  .video-list-thumbs .glyphicon-play-circle {
+    font-size: 35px;
+    right: 36%;
+    top: 27%;
+  }
+  .video-list-thumbs h2 {
+    bottom: 0;
+    font-size: 12px;
+    height: 22px;
+    margin: 8px 0 0;
+  }
+}

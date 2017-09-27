@@ -1,0 +1,23 @@
+<ng-sidebar-container [animate]="'true'">
+  <ng-sidebar [(opened)]="_opened" [mode]="'push'" [position]="'left'" [dock]="false" [dockedSize]="'50px'" [autoCollapseHeight]="500"
+    [autoCollapseWidth]="500" [showBackdrop]="false" [animate]="true" [sidebarClass]="'main-sidebar'" [ariaLabel]="'Main Menu'">
+    <img src="/assets/images/menu-logo.png" alt="logo" class="image-responsive" style="max-width:80px;margin-top:10px;">
+    <ul class="menu-item-list">
+      <!-- <li [routerLink]="['/home']" [routerLinkActive]="['is-active']"><span><i class="fa fa-home fa-2x" aria-hidden="true"></i><br>HOME</span></li>-->
+      <li [routerLink]="['/backoffice/users']" [routerLinkActive]="['is-active']"><span><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>USERS</span></li>
+      <li [routerLink]="['/backoffice/clubs']" [routerLinkActive]="['is-active']"><span><i class="fa fa-flag fa-2x" aria-hidden="true"></i><br>CLUBS</span></li>
+      <li [routerLink]="['/backoffice/teams']" [routerLinkActive]="['is-active']"><span><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>TEAMS</span></li>
+      <li [routerLink]="['/backoffice/video-overview']" [routerLinkActive]="['is-active']"><span><i class="fa fa-file-video-o fa-2x" aria-hidden="true"></i><br>VIDEOS</span></li>
+      <li [routerLink]="['/backoffice/playlist']" [routerLinkActive]="['is-active']"><span><i class="fa fa-music fa-2x" aria-hidden="true"></i><br>PLAYLISTS</span></li>
+      <li (click)="logout()"><span><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><br>LOGOUT</span></li>
+    </ul>
+  </ng-sidebar>
+  <header class="demo-header">
+    <button (click)="_toggleSidebar()" class="demo-header__toggle">Toggle sidebar</button>
+    <h3>Backoffice</h3>
+  </header>
+  <section class="demo-contents">
+    <router-outlet></router-outlet>
+  </section>
+  <app-footer></app-footer>
+</ng-sidebar-container>

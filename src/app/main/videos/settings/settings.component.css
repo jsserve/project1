@@ -1,0 +1,175 @@
+#video-metadata-form {
+  padding: 20px;
+}
+
+#video-metadata-form input , input.form-control{
+
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 320px;
+    background: #ececec;  
+}
+
+.control-label{
+  line-height: 54px;
+}
+
+
+.btn-save{
+  max-width: 320px;
+  width: 100%;
+  background: white;
+  padding: 10px;
+}
+
+.video-md-settings /deep/ .mat-ink-bar{
+  background-color: #009cff;
+}
+
+.video-md-settings /deep/ .mat-tab-label:focus{
+  /*background-color: rgba(0, 156, 255, 0.1)*/
+  background-color: transparent;
+}
+
+.video-md-settings /deep/ .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background: #009cff;
+}
+
+.video-md-settings /deep/ .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: rgba(0, 156, 255, 0.1);
+}
+
+.video-md-settings /deep/ .mat-tab-body-content{
+  max-width: 760px;
+  width: 100%;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+.tracking-data{
+  padding: 18px;
+}
+
+.btn-add-tracking{
+  padding: 10px;
+  background: white;
+  border-radius: 0;
+  max-width: 320px;
+  width: 100%;
+  background: transparent;
+  color: white;
+  border: 0;
+}
+
+.file-name-tracking{
+  padding: 40px!important;
+}
+
+
+
+:host >>> input.completer-input{
+    height: 34px;
+    padding: 30px;
+    width: 100%;
+    max-width: 320px;
+    background: #ececec;
+    border: 0;
+    box-shadow: none;
+}
+
+:host >>> ng2-completer.ng-invalid {
+    display: block;
+}
+
+.sportscode.dropdown{
+  padding-bottom: 20px;
+}
+.sportscode.dropdown button{
+  background: #337ab7;
+  color: white;
+  border: 0;
+  border-radius: 0;
+  padding: 15px 20px 15px 20px;
+  margin-top: 10px;
+  max-width: 280px;
+  width: 100%;
+}
+
+.sportscode.dropdown ul.dropdown-menu{
+  top: 53px;
+  left: 15px;
+  border-radius: 0;
+  border: 0;
+  color: #337ab7;
+  padding: 0;
+  max-width: 219px;
+  width: 100%;
+  text-align: center;
+}
+
+.sportscode.dropdown ul.dropdown-menu li{
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sportscode.dropdown ul.dropdown-menu li:hover{
+  color: white;
+  background: #337ab7;
+}
+
+.col-md-6.data-app{
+  padding: 0;
+}
+
+.loginOverLay {
+    display: table;
+    background: rgba(255,255,255,0.7);
+    /*background-image: url(../img/pattern/overlay-pattern.png);*/
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 7000;
+}
+
+    .loginOverLay > div {
+        display: table-cell;
+        vertical-align: middle;
+        height: 125px;
+        width: 125px;
+        margin: 0px auto;
+        text-align: center;
+    }
+
+        .loginOverLay > div > img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .input-group-btn.add-files{
+          text-align: center;
+        }
+        
+        .input-group-btn.add-files span{
+          max-width: 320px;
+          width: 100%;
+          background: white;
+          color: black;
+        
+        }
+
+select.form-control {
+    height: 60px !important;
+    width: 100%;
+    max-width: 320px;
+    background: #ececec;
+    border: 0;
+    box-shadow: none;
+    color: black;
+}        

@@ -1,0 +1,85 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+		<div>
+			<img src="../../assets/images/default.gif" />
+		</div>
+	</div>
+    
+<div class="container" style="margin-top:10px;">
+
+    
+    <!--<button type="button" class="btn btn-danger btn-sm" (click)="cancelUpdate(editClub)">Cancel Edit</button>-->
+
+    <div class="col-sm-3" style="margin-top:10px">
+        <ngx-datatable #activetable class="material" [columnMode]="'standard'" [rows]="teamsList" (onRowsUpdate)='updateRows()'>
+            <ngx-datatable-column name="Team" prop="name"> </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <i class="fa fa-pencil edit" aria-hidden="true" (click)="editTeam(row)"></i>
+                    <!--<i class="fa fa-trash delete" aria-hidden="true" (click)="deleteTeam(row)"></i>-->
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+
+    <div class="col-sm-7" style="margin-top:10px">
+        <form #form class="form-horizontal" id="team-form" #f="ngForm" (ngSubmit)="onSubmitTeam(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="name">Team Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="teamName" name="teamName" [(ngModel)]="teamName" placeholder="Enter Team Name" required>
+                </div>
+            </div>
+            <div class="form-group" style="padding-bottom: 30px;">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button *ngIf="updatedId == ''" type="submit" class="btn btn-success btn-sm">Create Team</button>
+                    <button *ngIf="updatedId != ''" type="submit" class="btn btn-success btn-sm">Update Team</button>
+                    <button *ngIf="updatedId != ''" type="button" (click)="cancelUpdate()" class="btn btn-danger btn-sm">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <modal #confirmationModal class="confirmation-modal">
+        <modal-header>
+        </modal-header>
+        <modal-content>
+            <p>
+                Are you sure you want to delete team?
+            </p>
+        </modal-content>
+        <modal-footer>
+            <button class="btn btn-primary" (click)="ConfirmDeleteTeam()">Ok</button>
+            <button class="btn btn-primary" (click)="cancelDelete()">Cancel</button>
+        </modal-footer>
+    </modal>
+    <modal #successModal class="success-modal">
+        <modal-header>
+        </modal-header>
+        <modal-content>
+            <p>
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </p>
+            <p>
+                {{successmsg}}
+            </p>
+        </modal-content>
+        <modal-footer>
+            <button class="btn btn-primary" (click)="successModal.close()">Ok</button>
+        </modal-footer>
+    </modal>
+    <modal #ErrorModal class="error-modal">
+        <modal-header>
+        </modal-header>
+        <modal-content>
+            <p>
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </p>
+            <p>
+                {{errormsg}}
+            </p>
+        </modal-content>
+        <modal-footer>
+            <button class="btn btn-primary" (click)="errorModal.close()">Ok</button>
+        </modal-footer>
+    </modal>
+</div>

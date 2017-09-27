@@ -1,0 +1,224 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+  <div>
+    <img src="../../assets/images/default.gif" />
+  </div>
+</div>
+
+<div class="container" style="margin-top:10px;">
+  <md-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndexChange($event)" class="video-md-settings">
+    <md-tab label="Approved Clubs">
+      <div class="col-sm-6">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Logo</th>
+              <th>Club</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let club of activatedClubList">
+              <td><img [src]="baseUrl + club.logo" style="width:50px" /></td>
+              <td>{{club.name}}</td>
+              <td>
+                <button type="button" class="btn btn-success btn-sm" (click)="editClubDetails(club)">Edit</button>
+                <button type="button" class="btn btn-success btn-sm" *ngIf="isAdmin" (click)="deactivateClubDetails(club)">Deactivate</button>
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="isAdmin" (click)="deleteClub(club,1)">Delete</button>
+                <!--*ngIf="club.users.length == 0 && club.videos.length == 0"-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-sm-6" *ngIf="showEditForm" style="margin-top:15px">
+        <form #editform class="form-horizontal" id="edit-club-form" #f="ngForm" (ngSubmit)="onSubmitEditClub(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="name">Club Name:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="editClubName" name="editClubName" [(ngModel)]="editClub.name" placeholder="Enter Title"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="slug">Nice Link Name:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="editClubSlug" name="editClubSlug" [(ngModel)]="editClub.NiceLinkName" placeholder="Nice Link Name"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="slug">Teams:</label>
+            <div class="col-sm-9">
+              <ss-multiselect-dropdown style="padding:0 !important;" name="teams" [options]="teamslistOptions" [texts]="teamslistTexts" [settings]="teamslistSettings"
+                [(ngModel)]="editClub.teams"></ss-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="editClub.updateLogo">
+            <label class="control-label col-sm-3" for="logoFile">Logo:</label>
+            <div class="col-sm-6">
+              <input type="file" class="" id="editClubLogo" (change)="onSelectEditLogoFile($event)" name="editClubLogo" [(ngModel)]="editClub.logoFile"
+                placeholder="Select logo image">
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-success btn-sm" (click)="cancelUpdateLogo(editClub)">Cancel</button>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="!editClub.updateLogo">
+            <label class="control-label col-sm-3" for="logoFile">Logo:</label>
+            <div class="col-sm-2">
+              <img [src]="baseUrl + editClub.logo" style="width:50px" />
+            </div>
+            <div class="col-sm-5">
+              <button type="button" class="btn btn-danger btn-sm" (click)="updateLogo(editClub)">Update</button>
+            </div>
+          </div>
+          <div class="form-group" style="padding-bottom: 30px;">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-success btn-sm">Edit Club</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="cancelUpdate(editClub)">Cancel Edit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </md-tab>
+    <md-tab label="Clubs wating approval" *ngIf="isAdmin">
+      <div class="col-sm-3" style="margin-top:15px">
+        <ngx-datatable class="material" [scrollbarH]="true" [rows]="clubList" [columnMode]="'flex'" [loadingIndicator]="loadingIndicator"
+          [selected]="selectedClub" [selectionType]="'single'" (activate)="onRowActivate($event)" (select)='onRowSelected($event)'>
+          <ngx-datatable-column prop="name" canAutoResize="true" [flexGrow]="1">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+      </div>
+      <div class="col-sm-9" *ngIf="selectedClub[0]" style="margin-top:15px">
+        <form class="form-horizontal" id="activate-club-form" #f="ngForm" (ngSubmit)="onSubmit(f,true)" novalidate [ngClass]="{'submited' : f._submitted}">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Club Name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedClub[0].name" placeholder="Enter Title"
+                (change)="generateNiceLinkName()" (keypress)="generateNiceLinkName()" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="slug">Nice Link Name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="slug" name="slug" [(ngModel)]="selectedClub[0].NiceLinkName" placeholder="Nice Link Name"
+                (keypress)="generateNiceLinkName()" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="slug">Teams:</label>
+            <div class="col-sm-10">
+              <ss-multiselect-dropdown style="padding:0 !important;" name="teams" [options]="teamslistOptions" [texts]="teamslistTexts" [settings]="teamslistSettings"
+                [(ngModel)]="selectedClub[0].teams"></ss-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="selectedClub[0].logo == '' || selectedClub[0].updateLogo">
+            <label class="control-label col-sm-2" for="logoFile">Logo:</label>
+            <div class="col-sm-10">
+              <input type="file" class="" id="logo" (change)="onSelectFile($event)" name="logoFile" [(ngModel)]="logoFile" placeholder="Select logo image">
+            </div>
+          </div>
+          <div class="form-group" *ngIf="selectedClub[0].logo != '' && !selectedClub[0].updateLogo">
+            <!--*ngIf="!editClub.updateLogo"-->
+            <label class="control-label col-sm-2" for="logoFile">Logo:</label>
+            <div class="col-sm-3">
+              <img [src]="baseUrl + selectedClub[0].logo" style="width:50px" />
+            </div>
+            <div class="col-sm-7">
+              <button type="button" class="btn btn-danger btn-sm" (click)="updateDeactivatedClubLogo(selectedClub[0])">Update</button>
+            </div>
+          </div>
+
+          <div class="form-group" style="padding-bottom: 30px;">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button" (click)="onSubmit(f,false)" class="btn btn-success btn-save">Save</button>
+              <button type="submit" class="btn btn-success btn-save">Activate</button>
+              <button *ngIf="selectedClub[0].users.length == 0 && selectedClub[0].videos.length == 0" type="button" class="btn btn-danger btn-sm"
+                (click)="deleteClub(selectedClub[0],2)">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </md-tab>
+
+    <md-tab label="Add new Club" *ngIf="isAdmin">
+      <div class="col-sm-12" style="margin-top:15px">
+        <form #form class="form-horizontal" id="add-club-form" #f="ngForm" (ngSubmit)="onSubmitNewClub(f,true)" novalidate [ngClass]="{'submited' : f._submitted}">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Club Name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="newClubName" name="newClubName" [(ngModel)]="newClub.name" placeholder="Enter Title"
+                (change)="generateNewClubNiceLinkName()" (keyup)="generateNewClubNiceLinkName()" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="slug">Nice Link Name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="newClubSlug" name="newClubSlug" [(ngModel)]="newClub.NiceLinkName" placeholder="Nice Link Name"
+                required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="slug">Teams:</label>
+            <div class="col-sm-10">
+              <ss-multiselect-dropdown style="padding:0 !important;" name="teams" [options]="teamslistOptions" [texts]="teamslistTexts" [settings]="teamslistSettings"
+                [(ngModel)]="newClub.teams"></ss-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="logoFile">Logo:</label>
+            <div class="col-sm-10">
+              <input type="file" class="" id="newClubLogo" (change)="onSelectNewLogoFile($event)" name="newClubLogo" [(ngModel)]="newClub.logoFile"
+                placeholder="Select logo image">
+            </div>
+          </div>
+          <div class="form-group" style="padding-bottom: 30px;">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button" (click)="onSubmitNewClub(f,false)" class="btn btn-success btn-save">Create</button>
+              <button type="submit" class="btn btn-success btn-save">Create & Activate Club</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </md-tab>
+  </md-tab-group>
+
+  <modal #successModal class="success-modal">
+    <modal-header>
+    </modal-header>
+    <modal-content>
+      <p>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </p>
+      <p>
+        {{successmsg}}
+      </p>
+    </modal-content>
+    <modal-footer>
+      <button class="btn btn-primary" (click)="successModal.close()">Ok</button>
+    </modal-footer>
+  </modal>
+
+  <modal #ErrorModal class="error-modal">
+    <modal-header>
+    </modal-header>
+    <modal-content>
+      <p>
+        <i class="fa fa-close" aria-hidden="true"></i>
+      </p>
+      <p>
+        {{errormsg}}
+      </p>
+    </modal-content>
+    <modal-footer>
+      <button class="btn btn-primary" (click)="errorModal.close()">Ok</button>
+    </modal-footer>
+  </modal>
+</div>

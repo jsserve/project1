@@ -1,0 +1,379 @@
+<div class="main-content" (window:keydown)="onKey($event)">
+
+  <div class="video-white-bg" id="text-overlay" *ngIf="enableOverlay && videoLoaded">
+    <span class="video-date">{{video.date | date:"dd.MM.yyyy"}}</span>
+    <h3 class="video-title" *ngIf="(video.type=='Training')">{{video.title}}</h3>
+    <h3 class="video-club1" *ngIf="video.club1details.length > 0 && video.club1details[0].name && (video.type!='Training')">{{video.club1details[0].name}}</h3>
+    <div *ngIf="(video.type!='Training')" class="video-image-main">
+      <img *ngIf="video.club1details.length > 0 && video.club1details[0].logo" [src]="baseVideoUrl + video.club1details[0].logo"
+        alt="" class="img-responsive video-images team1-logo">
+      <img *ngIf="video.club1details.length <= 0 || !video.club1details[0].logo || video.club1details[0].logo == ''" src="assets/images/default-clublogo.png"
+        class="img-responsive video-images team2-logo">
+      <span class="video-score"><span *ngIf="video.scoreTeam1" class="score">{{video.scoreTeam1}}</span>:
+      <span *ngIf="video.scoreTeam2" class="score">{{video.scoreTeam2}}</span>
+      </span>
+      <img *ngIf="video.club2details.length > 0 && video.club2details[0].logo" [src]="baseVideoUrl + video.club2details[0].logo"
+        alt="" class="img-responsive video-images team1-logo">
+      <img *ngIf="video.club2details.length <= 0 || !video.club2details[0].logo || video.club2details[0].logo == ''" src="assets/images/default-clublogo.png"
+        class="img-responsive video-images team2-logo">
+    </div>
+    <h3 class="video-club2" *ngIf="video.club2details.length > 0 && video.club1details[0].name && (video.type!='Training')">{{video.club2details[0].name}}</h3>
+  </div>
+  <div class=" video-box " #Container>
+
+    <vg-player *ngIf="video && playlist " (onPlayerReady)="onPlayerReady($event) " (mousemove)="onmouseenter()
+      " (mouseover)="onmouseenter() " (mouseleave)="onmouseleave() ">
+      <vg-overlay-play></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+
+      <vg-scrub-bar (mousemove)="onScrubBarMove($event,Container.getBoundingClientRect()) " *ngIf="currentIndex===1 ">
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+
+        <vg-scrub-bar-cue-points class="customCuePoints " [vgCuePoints]="metadataTrack.cues " [vgFor]="sportanalysis-video "></vg-scrub-bar-cue-points>
+      </vg-scrub-bar>
+
+      <vg-controls [vgAutohide]="true" [vgAutohideTime]="1.5">
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+        <vg-scrub-bar></vg-scrub-bar>
+
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+        <!--<vg-track-selector></vg-track-selector>-->
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume>
+
+        <vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+
+      <video (keypress)="eventHandler($event)" [vgMedia]="media " #media id="sportanalysis-video " preload="auto " crossorigin
+        [src]="currentItem.src ">
+        <!-- <source [src]="currentItem.src " [type]="currentItem.type "> -->
+        <track src="assets/data/cue-points.vtt " kind="metadata " label="Cue Points
+      " default #metadataTrack vgCuePoints (onEnterCuePoint)="onEnterCuePoint($event) " (onExitCuePoint)="onExitCuePoint($event) ">
+      </video>
+    </vg-player>
+
+  </div>
+  <div class="video-timeline " *ngIf="currentIndex===1 ">
+    <div class="clearfix ">
+
+    </div>
+    <div class="clearfix ">
+      <div class="pull-left video-controls-custom ">
+        <ul>
+          <li><i class="fa fa-step-forward " aria-hidden="true "></i></li>
+          <li><i class="fa fa-forward " aria-hidden="true "></i></li>
+          <li><i class="fa fa-play " aria-hidden="true "></i></li>
+          <li><i class="fa fa-backward " aria-hidden="true "></i></li>
+          <li><i class="fa fa-step-backward " aria-hidden="true "></i></li>
+          <li class="info "><i class="fa fa-info " aria-hidden="true "></i></li>
+          <li class="setting-icon "><i class="fa fa-cog " aria-hidden="true "></i></li>
+          <li class="trash-icon "><i class="fa fa-trash-o " aria-hidden="true "></i></li>
+          <li><i class="fa fa-list-ul " aria-hidden="true "></i></li>
+        </ul>
+      </div>
+      <div class="pull-right ">
+        <div class="timeline-info ">
+          <i class="fa fa-files-o " aria-hidden="true "></i>Timeline
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-time " *ngIf="currentIndex===1 && showEvent ">
+    <div class="timeline-left ">
+
+      <div class="video-select-box clock ">
+
+        <div class="clock-time ">
+          <i class="fa fa-clock-o " aria-hidden="true "></i> Events
+        </div>
+      </div>
+      <!--| searchVideoTimeline:'team,name':[teamModel,eventModel,searchQuery]" -->
+      <div class="form-group clearfix" style="font-size: 12px; text-align: center" *ngFor="let evtGroup of videoEvents | searchVideoTimeline:'team,name':[teamModel,eventModel,searchQuery]"
+        [ngClass]="{'active': checkIfCurrentTime(evtGroup)}">
+        <div class="input-group">
+          <i style="max-width: 20px; width: 100%; float: left; margin-top: 9px;" class="fa fa-eye" aria-hidden="true"></i>
+          <div class="" style="max-width: 80px; width: 100%; float: left; margin-top: 7px;" (click)="fillQueue(evtGroup)">
+            {{evtGroup.key}}
+          </div>
+          <div class="input-group-btn">
+            <div class="video-select-box">
+              <div class="dropdown" dropdown [dropdownToggle]="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" dropdown-open></button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let evt of evtGroup.values | searchVideoTimelineTeam:'team,name':[teamModel,eventModel,searchQuery]"><a href="#" (click)="goToEvent($event, evt)">{{evt.team}} ({{evt.start}}s-{{evt.end}}s)</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="timeline-right" (click)="timelineClicked($event, timelineContainer.getBoundingClientRect())" #timelineContainer>
+      <!-- <perfect-scrollbar #eventTimelineScrollbar>  -->
+      <div class="clearfix">
+        <div class="unvisible-scroll">
+          <!-- <div class="video-select-timeline time" [style.width]="(roundedDuration*10) +'px'"> -->
+          <div class="video-select-timeline time">
+            <div class="timeline-time" [style.left]="sec+'%'" *ngFor="let sec of 100 | numberCollection">
+              <span *ngIf="sec%20===0 && sec!==0 && sec!==100">{{fancyTimeFormat(sec*roundedDuration/100)}}</span>
+            </div>
+            <ion-range-slider class="range-slider" type="single" min="0" max="{{roundedDuration*100}}" from="{{currentVideoTime*100}}"
+              from_min="0" from_max="{{roundedDuration*100}}" step="0.0001" (onChange)="onChangeTimelineSlider($event)"></ion-range-slider>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-container" style="width:100%">
+        <!-- <perfect-scrollbar class="perfect-scrollbar-timeline"> -->
+        <!-- <pre>{{videoEvents | json}}</pre> -->
+        <div class="video-select clearfix" style="width:100%" *ngFor="let evtGroup of videoEvents | searchVideoTimeline:'team,name':[teamModel,eventModel,searchQuery]"
+          [ngClass]="{'active': checkIfCurrentTime(evtGroup)}">
+          <!-- timeline preview -->
+
+          <div class="video-select-timeline" style="width:100%">
+            <div *ngFor="let evt of evtGroup.values | searchVideoTimelineTeam:'team,name':[teamModel,eventModel,searchQuery]" class="video-line {{evt.name | className}}"
+              (click)="goToEvent($event, evt)" [ngClass]="{'active': checkIfCurrentEvent(evt)}" [style.left]="evt.start/roundedDuration*100 + '%'"
+              [style.width]="evt.duration/roundedDuration*100+'%'"></div>
+          </div>
+          <!-- end of timeline preview -->
+        </div>
+        <!-- </perfect-scrollbar> -->
+      </div>
+
+      <!-- </perfect-scrollbar> -->
+    </div>
+  </div>
+  <div *ngIf="cuePointData?.title" class="info-layer">
+    <!-- <h3>{{ cuePointData?.title }}</h3> -->
+  </div>
+</div>
+<div class="right-sidebar" *ngIf="showEvent">
+  <button *ngIf="multiPlaylist?.length > 0" (click)="createPlaylist(video._id,multiPlaylist,true)">Create Playlist</button>
+  <button *ngIf="multiPlaylist?.length > 0" (click)="addToPlaylist(video._id,multiPlaylist,true)">Add to Playlist</button>
+  <div class="events-list match-status col-xs-12">
+    <h2 class="title">Event list</h2>
+    <i class="fa fa-search show-filters" aria-hidden="true" (click)="showFilters = !showFilters"></i>
+  </div>
+  <div class="match-info filters col-xs-12" *ngIf="showFilters">
+
+    <!-- <span class="title-span">Filters</span>-->
+    <div class="form-group" class="first-dropdown">
+      <ss-multiselect-dropdown [options]="myOptions" [texts]="teamTexts" [settings]="teamSettings" [(ngModel)]="teamModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+    </div>
+    <div class="form-group" class="second-dropdown">
+      <ss-multiselect-dropdown [options]="myOptions1" [texts]="eventTexts" [settings]="eventSettings" [(ngModel)]="eventModel"
+        (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+    </div>
+    <span class="settings"><a *ngIf="video && isCoachOrAnalyst" [routerLink]="['/videos/settings', video._id]">Settings</a></span>
+
+
+
+    <div class="match-club  search clearfix form-inline">
+      <div class="form-group">
+        <label class="control-label" for="inputSuccess4"></label>
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery">
+        <span *ngIf="false"><img src="assets/images/search.png" alt="Search"></span>
+      </div>
+      <br>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="match-status playlist col-xs-12" *ngIf="showEvent">
+    <div class="stats">
+      <perfect-scrollbar>
+        <ul>
+          <ng-container *ngFor="let event of trackingJsonData | searchEvent:'team,name':[teamModel,eventModel,searchQuery]">
+
+            <li>
+
+              <md-checkbox ng-model="event.checked" [checked]="event.checked" class="more-events" id="{{event.rowId}}" (change)="selectEvent($event,event)"></md-checkbox>
+              <a style="display:block" class="playlist-info" href="#" (click)="goToEvent($event, event)" *ngIf="event.start !== 'NaN'">
+                <div class="message-img">
+                  {{fancyTimeFormat(event.start)}}
+                </div>
+                <div class="message-list-content">
+                  <h4><img [src]="getEventIcon(event.name)" alt="Event Icon" width="38" height="38" style="visibility: hidden">{{event.name}}
+                    ({{event.team}})
+                  </h4>
+                  <!-- <p>Friday, 9 June 2017</p> -->
+                  <!--  <div class="dots dropdown"><i class="dropbtn fa fa-ellipsis-h" aria-hidden="true"></i>
+                    <div class="dropdown-content">
+                      <a (click)="createPlaylist(video._id,event)">Create Playlist</a>
+                      <a (click)="addToPlaylist(video._id,event)">Add Playlist</a>
+
+                    </div>
+                  </div>-->
+
+                  <div class="dots dropdown" dropdown [dropdownToggle]="false">
+                    <button class="btn dropdown-toggle" type="button" dropdown-open><i class="dropbtn fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                      <!--<li (click)="createPlaylist(video._id,event,false)">Create Playlist</li>-->
+                      <li id="addtoplay" (click)="addToPlaylist(video._id,event,false)">Add to playlist</li>
+                      <li id="event" *ngIf="isCoachOrAnalyst" (click)="shareEventlist(video._id,event)">Share Event</li>
+                      <!--<li class="dropdown-submenu">
+
+                        <a id="event" *ngIf="isAdmin"  (click)="shareEventlist(video._id,event.id)">Share Event</a>
+                        <a id="addtoplay"  (click)="addToPlaylist(video._id,event)">Add to playlist</a>
+                        <a (click)="createPlaylist(video._id,event)">Create Playlist</a>
+                        <a id="addtoplay" tabindex="-1" href="#">Add to playlist</a>
+                        <ul class="dropdown-menu">
+                          <li (click)="createPlaylist(video._id,event)">Create Playlist</li>
+                          <li (click)="addToPlaylist(video._id,event)">Add to playlist</li>
+
+                        </ul>
+                      </li>-->
+                    </ul>
+                    <!-- <ul class="dropdown-menu">
+                      <li (click)="createPlaylist(video._id,event.id)">Create Playlist</li>
+                      <li (click)="addToPlaylist(video._id,event.id)">Add to playlist</li>
+                    </ul>-->
+                  </div>
+                </div>
+              </a>
+            </li>
+
+
+          </ng-container>
+        </ul>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <!-- <div class="chat-box">
+   <h4>Comments:</h4>
+    <perfect-scrollbar style="visibility:hidden">
+      <ul>
+        <li>
+         <i>@ Paul: </i>
+          <span>
+              Please attack in this situation
+            </span>
+        </li>
+      </ul>
+    </perfect-scrollbar>
+   <div class="reply">
+      <h5>Reply</h5>
+      <input type="text" />
+    </div>
+  </div>
+-->
+</div>
+
+<modal #createPlaylistModal class="error-modal">
+  <modal-header>
+  </modal-header>
+  <modal-content *ngIf="create">
+    <p>
+      Create Playlist
+    </p>
+    <form (ngSubmit)="addPlaylist()" #documentEditForm="ngForm">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="col-md-4 control-label">Name</label>
+          <input type="text" name="playlistName" [(ngModel)]="playlistName" #playlist="ngModel" class="form-control col-md-6" placeholder="Playlist Name"
+            required>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group pull-left" style="margin-top: 5%" *ngIf="saveMessage">
+          <span class="col-md-12">{{saveMessage}}</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" [disabled]="!documentEditForm.form.valid">Create playlist</button>
+        <button class="btn btn-primary" (click)="create = false;">Back</button>
+        <button class="btn btn-primary" (click)="createPlaylistModal.close()">Cancel</button>
+      </div>
+    </form>
+  </modal-content>
+  <modal-content *ngIf="!create">
+    <p>
+      Add To Playlist
+    </p>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Select Playlist</label>
+      <ss-multiselect-dropdown class="col-md-5" [options]="playlistOptions" [texts]="playlistTexts" [settings]="playlistSettings"
+        [(ngModel)]="playlistModel" (ngModelChange)="onChangeEvent($event)"></ss-multiselect-dropdown>
+    </div>
+    <div class="form-group pull-left" style="margin-top: 5%" *ngIf="updateMessage">
+      <span class="col-md-12">{{updateMessage}}</span>
+    </div>
+  </modal-content>
+  <modal-footer *ngIf="!create">
+    <button class=" btn btn-primary " [disabled]="!playlistModel || playlistModel?.length==0 " (click)="updatePlaylist() ">Add</button>
+    <button class="btn btn-primary" *ngIf="!multiplay" (click)="createPlaylist(video._id,event,false)">Create playlist</button>
+    <button class="btn btn-primary " (click)="createPlaylistModal.close() ">Cancel</button>
+  </modal-footer>
+
+</modal>
+<!-- <modal #updatePlaylistModal>
+  <modal-header>
+  </modal-header>
+  <modal-content *ngIf="!create">
+    <p>
+      Add To Playlist
+    </p>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Select Playlist</label>
+      <ss-multiselect-dropdown class="col-md-5" [options]="playlistOptions" [texts]="playlistTexts" [settings]="playlistSettings"
+        [(ngModel)]="playlistModel" (ngModelChange)="onChangeEvent($event)"></ss-multiselect-dropdown>
+    </div>
+    <div class="form-group pull-left" style="margin-top: 5%" *ngIf="updateMessage">
+      <span class="col-md-12">{{updateMessage}}</span>
+    </div>
+  </modal-content>
+  <modal-footer *ngIf="!create">
+    <button class=" btn btn-primary " [disabled]="!playlistModel || playlistModel?.length==0 " (click)="updatePlaylist() ">Add</button>
+    <button class="btn btn-primary " (click)="updatePlaylistModal.close() ">Cancel</button>
+  </modal-footer>
+</modal> -->
+<modal #assignEventModal>
+  <modal-header>
+  </modal-header>
+  <modal-content> 
+    <p>
+      Share Event
+    </p>
+    <div class="col-md-12">
+      <label class="col-md-3 control-label"> Users: </label>
+      <ss-multiselect-dropdown class="col-md-6" [options]="userlistOptions" [texts]="userlistTexts" [settings]="userlistSettings"
+        [(ngModel)]="userlistModel"></ss-multiselect-dropdown>
+    </div>
+    <div class="form-group pull-left" style="margin-top: 5%" *ngIf="updateMessage">
+      <span class="col-md-12">{{updateMessage}}</span>
+    </div>
+  </modal-content>
+  <modal-footer>
+    <button class=" btn btn-primary " [disabled]="!userlistModel || userlistModel?.length==0 " (click)="usersToEvent() ">Share</button>
+    <button class="btn btn-primary " (click)="assignEventModal.close() ">Cancel</button>
+  </modal-footer>
+</modal>
+<modal #SucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-info" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="SucessModal.close()">Ok</button>
+  </modal-footer>
+</modal>

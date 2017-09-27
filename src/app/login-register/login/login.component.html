@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row center-elements">
+    <div class="col-md-6 padding-rm right-border" style="padding-top:30px">
+      <img src="/assets/images/logo.png" alt="" class="img-fluid login-logo">
+      <p class="dark-grey new-member">New user or Not a member yet?</p>
+      <button class="btn btn-round btn-dark-grey btn-signup" [routerLink]="['/auth', 'register']">Sign Up</button>
+    </div>
+    <div class="col-md-6 padding-rm sign-in-form">
+      <h4 class="sign-in-notice">Sign in to continue</h4>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+        <div class="form-group">
+          <input type="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" required email>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group form-check col-sm-12 padding-rm text-center-xs">
+          <md-checkbox class="col-sm-6 col-xs-12 padding-rm">Stay signed in</md-checkbox>
+          <a href="#" class="col-sm-6 col-xs-12 padding-rm text-right pull-right-sm xs-fix forgot-pass">Forgot password?</a>
+        </div>
+        <div class="form-group text-center">
+          <button class="btn btn-round btn-green btn-signup" type="submit" [disabled]="!f.form.valid && f._submitted">Sign In</button>
+        </div>
+      </form>
+      <div class="copyright"> © 2017 provispo. All rights reserved. </div>
+    </div>
+
+  </div>
+</div>
+
+<modal #loginErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="loginErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

@@ -1,0 +1,294 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+	<div>
+		<img src="../../../assets/images/default.gif" />
+	</div>
+</div>
+
+<md-tab-group>
+	<md-tab label="Update Profile">
+		<div class="clearfix message-box">
+			<div class="col-md-8">
+				<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+
+					<div class="form-group">
+						<label>First Name</label>
+						<input type="text" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" class="form-control" placeholder="First Name"
+						 required>
+					</div>
+					<div class="form-group">
+						<label>Last Name</label>
+						<input type="text" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" class="form-control" placeholder="Last Name"
+						 required>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" class="form-control" placeholder="Email" required
+						 email>
+						<span class="help-block" *ngIf="!email.valid && f._submitted">Please enter a valid email</span>
+					</div>
+					<div class="form-group">
+						<label>Phone</label>
+						<input type="text" name="phone" [(ngModel)]="user.phone" #phone="ngModel" class="form-control" placeholder="Phone" pattern="[0-9]*"
+						 maxlength="15" required>
+						<span class="help-block" [hidden]="!phone.hasError('maxlength')">Phone number should be maximum 15 digit</span>
+						<span class="help-block" [hidden]="!phone.hasError('pattern')">Phone number should be only digits</span>
+					</div>
+					<div class="form-group">
+						<label>Role </label>
+						<select disabled name="role" #role class="form-control" [(ngModel)]="user.role" required>
+                    <option *ngFor="let role of roles" [value]="role.value">  
+                    {{role.display}}
+                    </option>
+                    </select>
+					</div>
+					<div class="form-group">
+						<label>Club </label>
+						<input type="text" disabled name="club" [(ngModel)]="clubName" #clubFunction="ngModel" class="form-control" placeholder="Club"
+						 required>
+					</div>
+					<div class="form-group">
+						<label>Club Function</label>
+						<input type="text" name="clubFunction" [(ngModel)]="user.clubFunction" #clubFunction="ngModel" class="form-control" placeholder="Club Function"
+						 required>
+					</div>
+
+
+					<div class="form-group text-right ">
+						<button class="btn btn-round btn-green btn-signup" [disabled]="!f.form.valid && f._submitted " type="submit ">Update Profile</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</md-tab>
+	<md-tab label="Change Password">
+		<div class="clearfix message-box">
+			<div class="col-md-8">
+				<form #form #p="ngForm" (ngSubmit)="changePassword(p)" novalidate [ngClass]="{'submited' : p._submitted}">
+
+					<div class="form-group">
+						<label>Old Password </label>
+						<input type="password" minlength="6" maxlength="12" pattern="([A-Z])([A-z0-9@_])*" name="oldpass" [(ngModel)]="cpass.oldpassword"
+						 #oldpass="ngModel" class="form-control" placeholder="Old Password" required>
+						<span class="help-block" [hidden]="!oldpass.hasError('minlength')">Old Password should be minimum 6 characters</span>
+						<span class="help-block" [hidden]="!oldpass.hasError('maxlength')">Old Password should be maximum 12 characters</span>
+						<span class="help-block" [hidden]="!oldpass.hasError('pattern')">Old Password first latter must be in uppercase followed by alphanumeric characters and special characters allowed @ _</span>
+					</div>
+					<div class="form-group">
+						<label>New Password </label>
+						<input type="password" name="password" minlength="6" maxlength="12" pattern="([A-Z])([A-z0-9@_])*" [(ngModel)]="cpass.newpassword"
+						 #password="ngModel" ngControl="password" class="form-control" placeholder="Password" required>
+
+						<span class="help-block" [hidden]="!password.hasError('minlength')">Password should be minimum 6 characters</span>
+						<span class="help-block" [hidden]="!password.hasError('maxlength')">Password should be maximum 12 characters</span>
+						<span class="help-block" [hidden]="!password.hasError('pattern')">Password first latter must be in uppercase followed by alphanumeric characters and special characters allowed @ _</span>
+					</div>
+					<div class="form-group">
+						<label>Confirm Password </label>
+						<input type="password" name="repeatPassword" [(ngModel)]="cpass.repeatPassword" class="form-control" placeholder="Confirm Password"
+						 required>
+						<span class="help-block" *ngIf="cpass.newpassword !== cpass.repeatPassword ">Passwords doesn't match!</span>
+					</div>
+					<div class="form-group text-right ">
+						<button class="btn btn-round btn-green btn-signup" [disabled]="cpass.newpassword !== cpass.repeatPassword || !p.form.valid && p._submitted "
+						 type="submit ">Change Password</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</md-tab>
+</md-tab-group>
+<!--
+<div class="clearfix message-box right">
+	<div class="col-md-8 message-content">
+		<div class="clearfix">
+			<div class="pull-left">
+				<h2><i class="fa fa-envelope-o" aria-hidden="true"></i> Messages</h2>
+			</div>
+			<div class="pull-right showing-result">
+				<p>Showing 1 to 6</p>
+				<div class="message-cb-showing">
+					<md-checkbox></md-checkbox>
+				</div>
+			</div>
+		</div>
+		<div class="message-scroll">
+			<ul>
+				<li>
+					<img src="assets/images/img9.png">
+					<h3>JannidWhite</h3>
+					<p>Last match was really awsome till end...</p>
+					<div class="message-date">
+						<p>June 14</p>
+						<div class="message-cb">
+							<md-checkbox></md-checkbox>
+						</div>
+					</div>
+				</li>
+				<li>
+					<img src="assets/images/img9.png">
+					<h3>JannidWhite</h3>
+					<p>Last match was really awsome till end...</p>
+					<div class="message-date">
+						<p>June 14</p>
+						<div class="message-cb">
+							<md-checkbox></md-checkbox>
+						</div>
+					</div>
+				</li>
+				<li>
+					<img src="assets/images/img9.png">
+					<h3>JannidWhite</h3>
+					<p>Last match was really awsome till end...</p>
+					<div class="message-date">
+						<p>June 14</p>
+						<div class="message-cb">
+							<md-checkbox></md-checkbox>
+						</div>
+					</div>
+				</li>
+				<li>
+					<img src="assets/images/img9.png">
+					<h3>JannidWhite</h3>
+					<p>Last match was really awsome till end...</p>
+					<div class="message-date">
+						<p>June 14</p>
+						<div class="message-cb">
+							<md-checkbox></md-checkbox>
+						</div>
+					</div>
+				</li>
+				<li>
+					<img src="assets/images/img9.png">
+					<h3>JannidWhite</h3>
+					<p>Last match was really awsome till end...</p>
+					<div class="message-date">
+						<p>June 14</p>
+						<div class="message-cb">
+							<md-checkbox></md-checkbox>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-4 message-video">
+		<div class="clearfix">
+			<div class="pull-left">
+				<a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i> Last watched clips</a>
+			</div>
+			<div class="pull-right">
+				<div class="last-watchd-clips">
+					<span>
+						<div class="dropdown" dropdown [dropdownToggle]="false">
+							<button class="btn dropdown-toggle btn-match" type="button" dropdown-open>Match
+									</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Match</a></li>
+								<li><a href="#">Match</a></li>
+								<li><a href="#">Match</a></li>
+							</ul>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="message-scroll">
+			<ul>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+				<li>
+					<div class="message-img">
+						<i class="fa fa-youtube-play" aria-hidden="true"></i>
+					</div>
+					<div class="message-list-content">
+						<h4>Yellow_card.mp4 | 00.13</h4>
+						<p>Friday, 9 June 2017</p>
+						<div class="dots"><img src="assets/images/more.png"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>-->
+
+<modal #updateSucessModal>
+	<modal-header>
+
+	</modal-header>
+	<modal-content>
+		<p>
+			<i class="fa fa-check" aria-hidden="true"></i>
+		</p>
+		<p>
+			{{successmsg}}
+		</p>
+	</modal-content>
+	<modal-footer>
+		<button class="btn btn-primary" (click)="updateSucessModal.close()">Ok</button>
+	</modal-footer>
+</modal>
+<modal #updateErrorModal class="error-modal">
+	<modal-header>
+
+	</modal-header>
+	<modal-content>
+		<p>
+			<i class="fa fa-close" aria-hidden="true"></i>
+		</p>
+		<p>
+			{{errormsg}}
+		</p>
+	</modal-content>
+	<modal-footer>
+		<button class="btn btn-primary" (click)="updateErrorModal.close()">Ok</button>
+	</modal-footer>
+</modal>

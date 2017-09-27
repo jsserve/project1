@@ -1,0 +1,54 @@
+<div class="container" style="margin-top:10px;" *ngIf="clubActive">
+  <h3>Playlist</h3>
+  <ngx-datatable class="material" [columnMode]="'force'" [rows]="playList" [rowHeight]="40">
+    <ngx-datatable-column name="Name">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Club" prop="user.club">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Created By">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.user.firstName}} {{row.user.lastName}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Action">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button *ngIf="row.playdata.length > 0" class="btn btn-default" [routerLink]="['/playlist/view',row._id]"><i class="fa fa-eye text-info" aria-hidden="true"></i></button>
+        <button *ngIf="isCoachOrAnalyst" type="button" (click)="deletePlaylist(row._id)" class="btn btn-default" aria-label="Left Align">
+ <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+ </button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+<modal #SucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-true" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="SucessModal.close()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #ErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" [routerLink]="['/home']" (click)="ErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

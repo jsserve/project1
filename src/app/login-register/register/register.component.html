@@ -1,0 +1,133 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+  <div>
+    <img src="../../assets/images/default.gif" />
+  </div>
+</div>
+
+<div class="container">
+  <div class="row center-elements">
+    <div class="col-md-6 padding-rm right-border">
+      <img src="/assets/images/logo.png" alt="" class="img-fluid login-logo">
+      <p class="dark-grey new-member">Alerady have an account?</p>
+      <button class="btn btn-round btn-dark-grey btn-signup" [routerLink]="['/auth', 'login']">Login</button>
+    </div>
+    <div class="col-md-6 padding-rm sign-in-form">
+      <div class="custom-fb">
+        <button class="btn btn-custom-fb">Sign up with facebook</button>
+      </div>
+      <div class="or">or</div>
+      <h4 class="sign-in-notice">Sign up with your email address</h4>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+        <div class="form-group">
+          <input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" class="form-control" placeholder="Email" required
+            email>
+          <span class="help-block" *ngIf="!email.valid && f._submitted">Please enter a valid email</span>
+        </div>
+        <div class="form-group">
+          <input type="text" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" class="form-control" placeholder="First Name"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" class="form-control" placeholder="Last Name"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="phone" [(ngModel)]="user.phone" #phone="ngModel" class="form-control" placeholder="Phone" pattern="[0-9]*"
+            maxlength="15" required>
+          <span class="help-block" [hidden]="!phone.hasError('maxlength')">Phone number should be maximum 15 digits</span>
+          <span class="help-block" [hidden]="!phone.hasError('pattern')">Phone number should be only digits</span>
+        </div>
+        <!-- <div class="form-group">
+          <input type="text" name="club" [(ngModel)]="user.club" #club="ngModel" class="form-control" placeholder="Club" required>
+        </div> -->
+        <!-- <div class="form-group">
+          <md-input-container>
+            <input class="form-control" mdInput placeholder="Club" [mdAutocomplete]="auto" #club="ngModel" class="form-control" [(ngModel)]="user.club"
+              name="club" required>
+          </md-input-container>
+
+          <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let club of filteredClubs | async" [value]="club">
+              {{ club }}
+            </md-option>
+          </md-autocomplete>
+        </div> -->
+        <div class="form-group">
+          <select name="role" #role class="form-control role-select" [(ngModel)]="user.role" required>
+                    <option value="null"> Role </option>
+                    <option *ngFor="let role of roles" [value]="role.value">  
+                    {{role.display}}
+                    </option>
+                    </select>
+        </div>
+        <div class="form-group">
+
+          <ng2-completer #club="ngModel" [(ngModel)]="user.club" name="club" [inputClass]="['autocompleteInput']" class="autocompleteControl"
+            placeholder="Club" [datasource]="clubData" [minSearchLength]="3" required></ng2-completer>
+        </div>
+        <div class="form-group">
+          <input type="text" name="clubFunction" [(ngModel)]="user.clubFunction" #clubFunction="ngModel" class="form-control" placeholder="Club Function"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" minlength="6" maxlength="12" pattern="([A-Z])([A-z0-9@_])*" [(ngModel)]="user.password"
+            #password="ngModel" ngControl="password" class="form-control" placeholder="Password" required>
+
+          <span class="help-block" [hidden]="!password.hasError('minlength')">Password should be minimum 6 characters</span>
+          <span class="help-block" [hidden]="!password.hasError('maxlength')">Password should be maximum 12 characters</span>
+          <span class="help-block" [hidden]="!password.hasError('pattern')">Password first latter must be in uppercase followed by alphanumeric characters and special characters allowed @ _</span>
+
+
+        </div>
+
+        <div class="form-group ">
+          <input type="password" name="repeatPassword" [(ngModel)]="repeatPassword" class="form-control" placeholder="Confirm Password"
+            required>
+          <span class="help-block" *ngIf="user.password !== repeatPassword ">Passwords doesn't match!</span>
+        </div>
+
+        <div class="form-group text-center ">
+          <button class="btn btn-round btn-green btn-signup" [disabled]="user.password !== repeatPassword || !f.form.valid && f._submitted "
+            type="submit ">Sign Up</button>
+        </div>
+        <p class="text-center copyright ">
+          © 2017 provispo. All rights reserved.<br> By singnin up. I agree to provispo’s<br>
+          <a href="# ">Terms of Services.</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<modal #regSucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="regSuccessPopupClose()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #regErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="regErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

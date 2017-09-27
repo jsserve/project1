@@ -1,0 +1,273 @@
+.message-box {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 4%;
+}
+.message-content {
+	background: #767d9a;
+    border-radius: 8px;
+}
+.message-content h2 {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+    padding: 15px 0;
+}
+.message-content h2 i {
+	margin-right: 7px;
+	font-size: 19px;
+	vertical-align: bottom;
+}
+.message-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid white;
+}
+.message-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid white;
+}
+.message-content ul li
+ img {
+    position: absolute;
+    top: 9px;
+    left: 0;
+}
+.message-content ul li {
+    position: relative;
+	padding: 10px 10px 9px 50px;
+	border-bottom: 1px solid #ccc;
+}
+.message-content ul li:hover {
+    background: #7780a8;
+}
+.message-content ul li h3 {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 6px;
+}
+.message-content ul li
+p {
+    font-size: 12px;
+    color: white;
+}
+.message-content ul li
+ .message-date {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.message-date i {
+    position: absolute;
+    right: 13px;
+    top: 4px;
+    color: white;
+}
+
+.message-cb-showing {
+    position: absolute;
+    right: 7px;
+    top: 17px;
+}
+
+.message-cb{
+    position: absolute;
+    right: 7px;
+    top: 0px;
+}
+
+ .mat-checkbox /deep/ .mat-checkbox-inner-container{
+    height: 13px;
+    width: 13px;
+}
+
+.mat-checkbox /deep/ .mat-checkbox-frame{
+    border: 1px solid white;
+    border-radius: 0;
+}
+
+.mat-checkbox /deep/ .mat-checkbox-ripple{
+    left: 0;
+    right: 0;
+}
+
+.message-content ul li .message-date {
+    position: absolute;
+    right: 0;
+    top: 24px;
+    min-width: 90px;
+}
+.message-video ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  border-top: 1px solid #009cff;
+  margin-top: 8px;
+}
+.message-video ul li {
+  position: relative;
+  padding-left: 50px;
+  padding: 7px 10px 7px 50px;
+}
+.message-video ul li .message-img {
+  position: absolute;
+  top: 4px;
+  left: 9px;
+}
+.message-video ul li .message-list-content {
+  border-bottom: 1px solid #ccc;
+}
+.message-video ul li .message-img i {
+  font-size: 26px;
+  color: white;
+  border: ;
+  text-shadow: 0px 0px 1px black;
+}
+.message-video ul li .message-list-contetn {
+}
+.message-list-content h4 {
+  font-size: 12px;
+  margin: 0;
+  color: #767d9a;
+}
+.message-list-content p {
+  color: #adadae;
+  font-size: 10px;
+}
+.message-list-content .dots {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
+.message-video a {
+    color: #009cff;
+    padding: 15px 4px 8px 4px;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.last-watchd-clips {
+  padding: 15px 4px 8px 4px;
+  font-size: 12px;
+  color: #767d9a;
+}
+
+.pull-right.showing-result {
+    padding-right: 30px;
+    position: relative;
+}
+.showing-result p {
+    margin: 0;
+        margin-top: 0px;
+        margin-right: 0px;
+    color: white;
+    font-size: 12px;
+    margin-top: 14px;
+    padding: 4px 14px;
+    border-radius: ;
+    border-right: 1px solid #a5a5a5;
+    margin-right: 10px;
+}
+.showing-result i {
+    position: absolute;
+    right: 11px;
+    top: 20px;
+    color: white;
+}
+
+.message-scroll{
+    max-height: 360px;
+    overflow: auto;
+}
+
+.btn-match{
+    background: #767d9a;
+    padding: 2px 6px;
+    border-radius: 25px;
+    margin-left: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.last-watchd-clips{
+    position: absolute;
+    top: -3px;
+    right: 15px;
+}
+
+.dropdown-menu{
+    min-width: auto;
+}
+
+.last-watchd-clips ul li{
+    padding: 7px 20px 7px 20px;
+}
+
+.dropdown-menu a{
+    padding: 0;
+}
+
+select.form-control{
+  height: auto !important;
+}
+
+@media (max-width: 991px) {
+    .message-content.col-md-8, .message-video.col-md-4{
+        max-width: 100%;
+    }
+}
+
+
+@media (max-width: 561px) {
+    .message-content ul li h3{
+        font-size: 12px;
+    }
+    .message-content ul li p{
+        font-size: 10px;
+    }
+    .message-content ul li .message-date {
+        top: 8px;
+    }
+    .message-list-content h4{
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 357px) {
+    .message-content ul li .message-date {
+        top: 55px;
+    }
+}
+
+.loginOverLay {
+    display: table;
+    background: rgba(255,255,255,0.7);
+    /*background-image: url(../img/pattern/overlay-pattern.png);*/
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 7000;
+}
+
+    .loginOverLay > div {
+        display: table-cell;
+        vertical-align: middle;
+        height: 125px;
+        width: 125px;
+        margin: 0px auto;
+        text-align: center;
+    }
+
+        .loginOverLay > div > img {
+            width: 120px;
+            height: 120px;
+        }

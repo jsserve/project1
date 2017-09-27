@@ -1,0 +1,118 @@
+
+
+.login-logo {
+  max-width: 150px;
+}
+
+.btn-signup {
+  padding: 10px 40px 10px 40px;
+}
+
+.sign-in-notice {
+  color: #383f87;
+  padding-left: 30px;
+}
+
+.sign-in-form {
+  max-width: 320px;
+  margin: auto;
+
+  text-align: left;
+}
+
+.green{
+    color:#1db954
+}
+
+.new-member{
+  margin-top:48px;
+}
+
+.center-elements{
+  padding-top: 110px;
+}
+
+.right-border {
+  border-right: 1px solid #e1e1e1;
+}
+
+.padding-rm form{
+    padding: 30px;
+}
+
+.mat-checkbox{
+   color: #2cbe5f;
+}
+
+.mat-checkbox-checked /deep/ .mat-checkbox-background {
+  background-color: #1db954;
+}
+
+.mat-checkbox-checked /deep/ .mat-checkbox-frame{
+  border-radius: 50px;
+}
+
+.forgot-pass{
+    padding-top: 2px;
+    color: #6d72a7;
+}
+
+form .form-group .form-control{
+  border-radius: 0;
+  border-color: #dfe0e6;
+  color: #6a7177;
+  padding: 20px;
+}
+
+form .form-group .form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #6a7177;
+}
+form .form-group .form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #6a7177;
+   opacity:  1;
+}
+form .form-group .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #6a7177;
+   opacity:  1;
+}
+form .form-group .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #6a7177;
+}
+form .form-group .form-control::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #6a7177;
+}
+
+.copyright{
+  text-align: center;
+  padding-top: 60px;
+  color: #92979b;
+}
+
+
+
+@media screen and (max-width: 750px) {
+  .text-right.xs-fix{
+    padding: 20px;
+     text-align: center !important;
+  }
+  .text-center-xs{
+    text-align: center !important;
+  }
+  .center-elements{
+    padding-top: 10px;
+  }
+  .sign-in-notice{
+    padding: 0;
+    padding-top: 20px;
+    text-align: center;
+  }
+  .copyright{
+    padding-top: 20px;
+  }
+  .right-border{
+    border-right: none;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 30px;
+  }
+
+}

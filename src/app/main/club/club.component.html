@@ -1,0 +1,208 @@
+<div class="container videos-list" *ngIf="clubActive">
+
+  <md-tab-group class="video-md-settings">
+    <md-tab label="Videos">
+      <p class="upload-search clearfix" *ngIf="videoList">
+        <span class=viewbtns>
+          <i (click)="gridView()" [ngClass]="{'active':grid}" class="fa fa-table" aria-hidden="true"></i>
+          <i (click)="listView()" [ngClass]="{'active':list}" class="fa fa-list" aria-hidden="true"></i>
+          </span>
+        <input type="text" class="form-control search-btn" placeholder="Search" [(ngModel)]="searchQuery" />
+
+        <!-- <md-radio-group id="type" [(ngModel)]="video_type" name="type" (change)="typeFilter()">
+          <md-radio-button value="All">All</md-radio-button>
+          <md-radio-button value="Match">Match</md-radio-button>
+          <md-radio-button value="Event">Event</md-radio-button>
+          <md-radio-button value="Training">Training</md-radio-button>
+          <md-radio-button value="Telestration">Telestration</md-radio-button>
+        </md-radio-group> -->
+        <!-- <label>Video Type:  </label>
+        <select class="sportscode" name="type" required [(ngModel)]="video_type" (ngModelChange)="typeFilter()" style="font-size: 18px; font-weight: normal;">
+                      <option>All</option>
+                      <option>Match</option>
+                      <option>Event</option>
+                      <option>Training</option>
+                      <option>Telestration</option>
+                  </select> -->
+      </p>
+
+      <h3 class="recent" *ngIf="videoList">{{club.name}} Videos</h3>
+      <perfect-scrollbar *ngIf="grid">
+        <div class="all-videos col-md-12" *ngIf="videoList">
+
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" *ngFor="let video of videoList | search:'title,type,team1,team2,clubname1,clubname2':searchQuery">
+            <a [routerLink]="['/videos/view', video._id]">
+              <img [src]="baseVideoUrl + video.screenshot_path" alt="video-screenshot" class="img-responsive video-ss" height="130px" />
+
+              <span class="glyphicon glyphicon-play-circle play-btn"></span>
+              <span class="duration">{{video.type}}</span>
+              <!-- <span class="durationn">02:11:16</span> -->
+              <div class="teams">
+                <tr>
+                  <td>
+                    <img *ngIf="(video.club1details.length > 0 && video.club1details[0].logo) && (video.type!='Training')" [src]="baseVideoUrl + video.club1details[0].logo"
+                      alt="" class="img-responsive">
+                    <img *ngIf="(video.club1details.length <= 0 || !video.club1details[0].logo || video.club1details[0].logo == '') && (video.type!='Training')"
+                      src="assets/images/default-clublogo.png" class="img-responsive">
+                  </td>
+                  <td *ngIf="(video.scoreTeam1 && video.scoreTeam2) && (video.type!='Training')">{{video.scoreTeam1}} : {{video.scoreTeam2}}</td>
+                  <td *ngIf="(!video.scoreTeam1 || !video.scoreTeam2) &&  (video.type!='Training')">0 : 0</td>
+                  <td>
+                    <img *ngIf="(video.club2details.length > 0 && video.club2details[0].logo) && (video.type!='Training')" [src]="baseVideoUrl + video.club2details[0].logo"
+                      alt="" class="img-responsive">
+                    <img *ngIf="(video.club2details.length <= 0 || !video.club2details[0].logo || video.club2details[0].logo == '') && (video.type!='Training')"
+                      src="assets/images/default-clublogo.png" class="img-responsive">
+                  </td>
+                </tr>
+              </div>
+              <div class="video-white-bg">
+                <h2 class="video-title" *ngIf="(video.type=='Training')">{{video.title}}</h2>
+                <h2 class="video-title" *ngIf="(video.type!='Training')"><span *ngIf="video.club1details.length > 0 && video.club1details[0].name">{{video.club1details[0].name}}</span>                  vs <span *ngIf="video.club2details.length > 0 && video.club2details[0].name">{{video.club2details[0].name}}</span></h2>
+                <div class="date">
+                  <ul class="list-inline">
+
+                    <li>{{video.date | date:"dd.MM.yyyy"}}</li>
+                    <li>
+                      <i (click)="downloadVideo(video,$event)" class="fa fa-download text-info"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </perfect-scrollbar>
+      <perfect-scrollbar *ngIf="list">
+
+
+        <div class="all-videos col-md-12" *ngIf="videoList">
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 list-view">
+            <ul class="list-inline video-list-details">
+              <li></li>
+              <!-- <li>Video type / Duration</li> -->
+              <li>Date</li>
+              <li class="result">Result</li>
+              <li>Home Team</li>
+              <li>Away Team</li>
+              <li>Type</li>
+              <li>Action</li> 
+            </ul>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 list-view" *ngFor="let video of videoList | search:'title,type,team1,team2':searchQuery">
+
+            <a [routerLink]="['/videos/view', video._id]">
+              <ul class="list-inline video-list-details">
+                <li>
+                  <img [src]="baseVideoUrl + video.screenshot_path" alt="video-screenshot" class="img-responsive video-ss" height="130px" />
+                </li>
+                <!-- <li class="type-duration">
+                          <span>{{video.type}} 02:11:16</span> 
+                        </li>-->
+                <!-- <div class="list-view-sideidetail">-->
+                <li class="views-date"> {{video.date | date:"dd.MM.yyyy"}}</li>
+
+                <li class="teams-result">
+                  <!-- <ul class="list-inline">
+                                <li><img src="assets/images/img1.png" class="img-responsive"></li>
+                                <li>1 : 2</li>
+                                <li><img src="assets/images/img2.png" class="img-responsive"></li>
+                            </ul>-->
+                  <span class="first-team"><img *ngIf="(video.club1details.length > 0 && video.club1details[0].logo) && (video.type!='Training')" [src]="baseVideoUrl + video.club1details[0].logo" alt="" class="img-responsive">
+                          <img *ngIf="(video.club1details.length <= 0 || !video.club1details[0].logo || video.club1details[0].logo == '') && (video.type!='Training')" src="assets/images/default-clublogo.png"  class="img-responsive"></span>
+                  <span *ngIf="(video.scoreTeam1 && video.scoreTeam2) && (video.type!='Training')">{{video.scoreTeam1}} : {{video.scoreTeam2}}</span>
+                  <span *ngIf="(!video.scoreTeam1 || !video.scoreTeam2) && (video.type!='Training')">0 : 0</span>
+                  <span class="second-team">
+                            <img *ngIf="(video.club2details.length > 0 && video.club2details[0].logo) && (video.type!='Training')"  [src]="baseVideoUrl + video.club2details[0].logo" alt="" class="img-responsive">
+                            <img *ngIf="(video.club2details.length <= 0 || !video.club2details[0].logo || video.club2details[0].logo == '') && (video.type!='Training')" src="assets/images/default-clublogo.png"  class="img-responsive">
+                          </span>
+                </li>
+
+                <li>
+                  <h2 class="video-title" *ngIf="(video.type=='Training')">{{video.title}}</h2>
+                  <h2 class="video-title" *ngIf="(video.type!='Training')"><span *ngIf="video.club1details.length > 0 && video.club1details[0].name">{{video.club1details[0].name}}</span></h2>
+                </li>
+                <li>
+                  <h2 class="video-title" *ngIf="(video.type=='Training')">{{video.title}}</h2>
+                  <h2 class="video-title" *ngIf="(video.type!='Training')"><span *ngIf="video.club2details.length > 0 && video.club2details[0].name">{{video.club2details[0].name}}</span></h2>
+                </li>
+                <li>{{video.type}}</li>
+                <li>
+                  <i (click)="downloadVideo(video,$event)" class="fa fa-download text-info"></i>
+                </li>
+
+              </ul>
+            </a>
+
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </md-tab>
+    <md-tab label="Players" *ngIf="isCoachOrAnalyst">
+      <ngx-datatable #activetable class="material" [columnMode]="'force'" [rows]="usersList">
+        <ngx-datatable-column name="Email" prop="email"> </ngx-datatable-column>
+        <ngx-datatable-column name="First Name" prop="firstName"> </ngx-datatable-column>
+        <ngx-datatable-column name="Last Name" prop="lastName"> </ngx-datatable-column>
+        <ngx-datatable-column name="Club">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.club[0].name}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Team(s)" prop="teams"> </ngx-datatable-column>
+        <ngx-datatable-column name="Club Function" prop="clubFunction"> </ngx-datatable-column>
+        <ngx-datatable-column name="Phone Number" prop="phone"> </ngx-datatable-column>
+        <ngx-datatable-column name="Role">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span *ngIf="row.coach">Coach</span>
+            <span *ngIf="!row.coach">Player</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Active">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span *ngIf="row.activate">Yes</span>
+            <span *ngIf="!row.activate">No</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </md-tab>
+  </md-tab-group>
+
+  <div #htmldiv>
+    <a #lnkDownloadLink style="display: none;" target="_self" href="{{videoUrl}}" download="{{videoOriginalName}}">downlaod</a>
+  </div>
+
+</div>
+
+<modal #SucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="SucessModal.close()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #ErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="ErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

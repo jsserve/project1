@@ -1,0 +1,348 @@
+
+.progress{
+    font-size: 12px;
+    margin: 0;
+    height: 4px;
+}
+.panel{
+    border-radius: 0;
+    margin-top:20px;
+    color:#b0b0b0;
+    min-height: 450px;
+    max-width: 1240px;
+    margin: auto;
+}
+
+.panel-body{
+    width: 100%;
+    margin: auto;
+    
+}
+.panel-default>.panel-heading{
+    border: 0;
+    background-color: #ffffff;
+}
+.panel-default{
+    border: 0;
+}
+
+.uploading{
+    font-size: 16px;
+    color: white;
+}
+
+.inner{
+    opacity:0.7;
+    filter: alpha(opacity=20);
+    background-color:#000; 
+    width:100%; 
+    height:100%; 
+    z-index:99999999;
+    top:0; 
+    left:0; 
+    position:fixed; 
+    display: table;
+}
+
+.inner div.center-all{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.upload-icon{
+    width:100px;
+}
+#upload-area{
+    cursor:pointer;
+} 
+#video-metadata .form-group{
+  margin-left: auto;
+  margin-right: auto;
+}
+.mat-radio-checked /deep/ .mat-radio-inner-circle {
+  background-color: #1db954;
+}
+.mat-radio-checked /deep/ .mat-radio-outer-circle {
+  border-color: #1db954;
+}
+
+.md-inputs /deep/ .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background: #009cff;
+}
+
+.md-inputs /deep/ .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: rgba(0, 156, 255, 0.4);
+}
+.input.completer-input.ng-pristine.ng-valid.ng-touched{border: none !important;}
+
+.btn-upload{
+    margin: auto;
+    margin-top: 20px;
+}
+.bar{
+    padding-top: 40px;
+    max-width: 320px;
+    margin: auto;
+}
+.progress{
+    background: #ffffff;
+}
+.progress-bar{
+    background: #003fff;
+}
+.upload-div{
+        margin: auto;
+        width: 100%;
+}
+p.or{
+    margin: auto;
+    color: #bfc2d0;
+}
+p.drag-file{
+    margin: auto;
+    color: #44b6ff;
+}
+#dropzone h4{
+    color: #bfc2d0;
+}
+#video-metadata .form-group input{
+    border: 1px solid #767d9a;
+}
+
+.mat-radio-button{
+    color: #b6bac9;
+    font-weight: 100;
+}
+
+form .form-group .form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #b6bac9;
+}
+form .form-group .form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #b6bac9;
+   opacity:  1;
+}
+form .form-group .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #b6bac9;
+   opacity:  1;
+}
+form .form-group .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #b6bac9;
+}
+form .form-group .form-control::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #b6bac9;
+}
+
+.btn.btn-blue-outline{
+    border: 1px solid #009cff;
+    padding: 10px 20px 10px 20px;
+}
+.btn.btn-round{
+    font-weight: 100;
+}
+.panel-heading{
+    color: #888ea7;
+}
+
+.video-area{
+    min-height: 200px;
+    height: 100%;
+    overflow: auto;
+    border-top: 8px solid #f2f1f6;
+}
+
+.select-box{
+    border: 0;
+    color: #767d9a;
+}
+
+.video-area .panel-body{
+    margin-top: 40px;
+}
+
+.video-area .panel-body h4{
+    display: inline;
+    color: #888ea7;
+    font-size: 13px;
+}
+
+.video-area .panel-body .col-md-8 h4{
+    padding-left: 5px;
+}
+
+.video-area .panel-body .col-md-4 h4{
+    padding-right: 5px;
+}
+
+.video-area .panel-body .col-md-4{
+    text-align: right;
+}
+
+.events .col-md-8, .events .col-md-4{
+    margin-top: 10px;
+}
+
+.events i{
+    cursor: pointer;
+}
+
+.event-date{
+    text-align: right;
+}
+
+.video-name{
+    text-align: left;
+}
+
+
+.panel-default{
+    margin-top: 130px;
+    margin-bottom: 160px;
+}
+
+form.upload-inputs{
+    margin: auto;
+}
+.circle-margin{
+        margin-top: 26px;
+}
+:host >>> .completer-input {border: none !important;outline: none;}
+:host >>> #selectClub, #selectClub2, #selectTeam1, #selectTeam2{
+        border: 1px solid #767d9a;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 11px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        
+}
+
+:host >>> .completer-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color :#b6bac9;
+  font-weight:bold; 
+}
+:host >>> .completer-input::-moz-placeholder { /* Firefox 19+ */
+   color :#b6bac9;
+   font-weight:bold;
+}
+:host >>> .completer-input:-ms-input-placeholder { /* IE 10+ */
+  color :#b6bac9;
+  font-weight:bold;
+}
+:host >>> .completer-input:-moz-placeholder { /* Firefox 18- */
+  color :#b6bac9;
+  font-weight:bold;
+}
+#video-metadata.form-inline .control-label{
+    color: #555555;
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 1339px) {
+
+   #video-metadata .form-group{
+       width: 100%;
+       margin-top: 15px;
+   }
+}
+
+
+
+@media (max-width: 779px) {
+    .progress{
+        padding-left: 0;
+    }
+    span.uploading{
+        display: none;
+    }
+    .mat-radio-button{
+        padding-right: 5px;
+        font-size: 12px;
+    }
+    .md-radio-group{
+        display: inline-flex;
+        display: -webkit-inline-flex;
+    }
+    .panel-heading{
+        text-align: center;
+    }
+    
+  
+    .video-area .panel-body .col-md-4{
+        text-align: left;
+    }
+    .video-area .panel-body .col-md-4 img{
+        float: left;
+    }
+    .video-area .panel-body .col-md-4 h4{
+        padding-right: 0px;
+        padding-left: 5px;
+    }
+    .event-date{
+        text-align: center;
+    }
+    .video-name{
+        padding-bottom: 20px;
+        text-align: center;
+    }
+    .events .col-md-4{
+        padding-bottom: 10px;
+    }
+    .video-area .panel-body h4{
+        display: inline;
+        color: #888ea7;
+        font-size: 11px;
+    }
+    #video-metadata .form-group{
+       width: auto;
+       margin-top: 15px;
+   }
+   form.upload-inputs{
+       margin: auto;
+   }
+}
+
+
+@media (max-width: 586px) {
+    .mat-radio-button{
+        list-style-type: none;
+        display: list-item;
+        text-align: left;
+    }
+    #video-metadata .form-group{
+        width: 100%;
+    }
+}
+
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-right: 10px !important;
+}
+
+md-radio-button {
+    padding-right: 10px;
+}
+
+input.ng-invalid {
+    border-left: 3px solid #a94442 !important;
+}
+
+:host >>> ng2-completer.ng-invalid {
+    border-left: 3px solid #a94442 !important;
+}
+
+select.form-control{
+    height: auto !important;
+}

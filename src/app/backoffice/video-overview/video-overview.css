@@ -1,0 +1,34 @@
+:host >>> datatable-body-cell.datatable-body-cell.sort-active {
+    word-break: break-all;
+}
+
+.loginOverLay {
+    display: table;
+    background: rgba(255,255,255,0.7);
+    /*background-image: url(../img/pattern/overlay-pattern.png);*/
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 7000;
+}
+
+    .loginOverLay > div {
+        display: table-cell;
+        vertical-align: middle;
+        height: 125px;
+        width: 125px;
+        margin: 0px auto;
+        text-align: center;
+    }
+
+        .loginOverLay > div > img {
+            width: 120px;
+            height: 120px;
+        }
+
+i{
+    cursor: pointer;
+}        

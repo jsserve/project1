@@ -1,0 +1,109 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+  <div>
+    <img src="../../assets/images/default.gif" />
+  </div>
+</div>
+
+<div class="container" style="margin-top:20px;">
+  <div class="row center-elements">
+    <div class="col-md-6 col-md-offset-3 padding-rm sign-in-form">
+      <h3>Add user</h3>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate [ngClass]="{'submited' : f._submitted}">
+        <div class="form-group">
+          <input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" class="form-control" placeholder="Email" required
+            email>
+          <span class="help-block" *ngIf="!email.valid && f._submitted">Please enter a valid email</span>
+        </div>
+        <div class="form-group">
+          <input type="text" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" class="form-control" placeholder="First Name"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" class="form-control" placeholder="Last Name"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="phone" [(ngModel)]="user.phone" #phone="ngModel" class="form-control" placeholder="Phone" pattern="[0-9]*"
+            maxlength="15" required>
+          <span class="help-block" [hidden]="!phone.hasError('maxlength')">Phone number should be maximum 15 digit</span>
+          <span class="help-block" [hidden]="!phone.hasError('pattern')">Phone number should be only digits</span>
+        </div>
+        <div class="form-group">
+          <select name="role" #role class="form-control role-select" [(ngModel)]="user.role" required>
+            <option value="null"> Role </option>
+             <option value=1 *ngIf="user.role==1"> Superadmin </option>
+            <option *ngFor="let role of roles"  [ngValue]="role.value">{{role.display}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <ng2-completer #club="ngModel" *ngIf="isAdmin" [(ngModel)]="user.club" (ngModelChange)="onChangeofClub()" name="club" [inputClass]="['autocompleteInput']"
+            class="autocompleteControl" placeholder="Club" [datasource]="clubData" [minSearchLength]="3" required></ng2-completer>
+          <!-- <input type="text" *ngIf="!isAdminOrCoach" name="club" disabled [(ngModel)]="user.club" class="form-control" placeholder="Club"
+            required> -->
+        </div>
+        <div class="form-group">
+          <select name="teams" #teams class="form-control role-select" [(ngModel)]="user.teams" required>
+            <option value="null" disabled>Select Team </option>
+            <option *ngFor="let team of clubTeams" [ngValue]="team._id">{{team.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="text" name="clubFunction" [(ngModel)]="user.clubFunction" #clubFunction="ngModel" class="form-control" placeholder="Club Function"
+            required>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" minlength="6" maxlength="12" pattern="([A-Z])([A-z0-9@_])*" [(ngModel)]="user.password"
+            #password="ngModel" ngControl="password" class="form-control" placeholder="Password" required>
+
+          <span class="help-block" [hidden]="!password.hasError('minlength')">Password should be minimum 6 characters</span>
+          <span class="help-block" [hidden]="!password.hasError('maxlength')">Password should be maximum 12 characters</span>
+          <span class="help-block" [hidden]="!password.hasError('pattern')">Password first letter must be in uppercase followed by alphanumeric characters and special characters allowed @ _</span>
+        </div>
+
+        <div class="form-group ">
+          <input type="password" name="repeatPassword" [(ngModel)]="repeatPassword" class="form-control" placeholder="Confirm Password"
+            required>
+          <span class="help-block" *ngIf="user.password !== repeatPassword ">Passwords doesn't match!</span>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-round btn-green btn-signup" [disabled]="user.password !== repeatPassword || !f.form.valid && f._submitted "
+            type="submit ">Add user</button>
+          <button class="btn btn-round btn-green btn-signup" (click)="regSuccessPopupClose() ">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <modal #regSucessModal>
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+      <p>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </p>
+      <p>
+        {{successmsg}}
+      </p>
+    </modal-content>
+    <modal-footer>
+      <button class="btn btn-primary" (click)="regSuccessPopupClose()">Ok</button>
+    </modal-footer>
+  </modal>
+  <modal #regErrorModal class="error-modal">
+    <modal-header>
+
+    </modal-header>
+    <modal-content>
+      <p>
+        <i class="fa fa-close" aria-hidden="true"></i>
+      </p>
+      <p>
+        {{errormsg}}
+      </p>
+    </modal-content>
+    <modal-footer>
+      <button class="btn btn-primary" (click)="regErrorModal.close()">Ok</button>
+    </modal-footer>
+  </modal>
+</div>

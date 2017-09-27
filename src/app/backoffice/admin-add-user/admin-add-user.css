@@ -1,0 +1,59 @@
+.form-group {
+    margin-bottom: 30px;
+}
+.add-user-button{
+margin-right: 75%;
+}
+.center-elements
+{
+    background-color: white;
+    padding: 20px 0px;
+}
+select.form-control{
+  height: auto !important;
+}
+:host >>> .autocompleteInput {border: none !important;outline: none;padding: 5px 0px 0px 8px;}
+:host >>> .autocompleteControl{
+        border: 1px solid #767d9a;
+        display: block;
+        width: 100%;
+        height: 42px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        outline: none;
+}
+
+.loginOverLay {
+    display: table;
+    background: rgba(255,255,255,0.7);
+    /*background-image: url(../img/pattern/overlay-pattern.png);*/
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 7000;
+}
+
+    .loginOverLay > div {
+        display: table-cell;
+        vertical-align: middle;
+        height: 125px;
+        width: 125px;
+        margin: 0px auto;
+        text-align: center;
+    }
+
+        .loginOverLay > div > img {
+            width: 120px;
+            height: 120px;
+        }

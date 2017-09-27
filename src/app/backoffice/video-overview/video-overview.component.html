@@ -1,0 +1,140 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+  <div>
+    <img src="../../assets/images/default.gif" />
+  </div>
+</div>
+
+<div class="container" style="margin-top:10px;">
+  <h3>Video list</h3>
+  <ngx-datatable class="material" [columnMode]="'force'" [rows]="videoList" [loadingIndicator]="loadingIndicator" [rowHeight]="'auto'">
+
+    <!-- <ngx-datatable-column name="title">
+
+      <ng-template let-column="title" ngx-datatable-header-template>
+        Title
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+        Video Details
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="(row.type!='Training')">
+          <span *ngIf="(row.club1details && row.club1details.length > 0)"> {{row.club1details[0].name}}</span> vs
+        <span *ngIf="(row.club2details && row.club2details.length > 0)"> {{row.club2details[0].name}}</span>
+        </span>
+        <span *ngIf="(row.type=='Training')"> {{row.title}}</span>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="type">
+
+      <ng-template let-column="type" ngx-datatable-header-template>
+        Type
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="ofilename">
+
+      <ng-template let-column="ofilename" ngx-datatable-header-template>
+        Filename
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="club">
+
+      <ng-template let-column="club" ngx-datatable-header-template>
+        Club
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+        <!--{{value.club}}-->
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="viewCounter">
+
+      <ng-template let-column="club" ngx-datatable-header-template>
+        View Counter
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+        <!--{{value.club}}-->
+      </ng-template>
+
+    </ngx-datatable-column>
+
+
+    <ngx-datatable-column name="id" sortable="false">
+      <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+        Action
+      </ng-template>
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <!-- <button (click)="confirmDelete(value)" [disabled]="row['status']==='BLOCKED'">
+            <i class="fa fa-trash-o"></i>
+        </button> -->
+
+        <i class="fa fa-share-alt fa-lg text-success" aria-hidden="true" (click)="assignVideo(row._id)"></i>&nbsp;
+        <i class="fa fa-cog fa-lg text-info" aria-hidden="true" [routerLink]="['/backoffice/videos-settings',row._id]"></i>&nbsp;
+        <i class="fa fa-trash fa-lg text-danger" aria-hidden="true" (click)="confirmDelete(value)"></i>
+        <i (click)="downloadVideo(row,$event)" class="fa fa-download fa-lg text-info"></i>
+
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+
+  <div #htmldiv>
+    <a #lnkDownloadLink style="display: none;" target="_self" href="{{videoUrl}}" download="{{videoOriginalName}}">downlaod</a>
+  </div>
+
+</div>
+<modal #videoSucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="videoSucessModal.close()">Ok</button>
+  </modal-footer>
+</modal>
+<modal #assignVideoModal>
+  <modal-header>
+
+
+  </modal-header>
+  <modal-content>
+    <p>
+      Share Video
+    </p>
+    <div class="col-md-12">
+      <label class="col-md-3 control-label"> Users: </label>
+      <ss-multiselect-dropdown class="col-md-6" [options]="userlistOptions" [texts]="userlistTexts" [settings]="userlistSettings"
+        [(ngModel)]="userlistModel"></ss-multiselect-dropdown>
+    </div>
+    <div class="form-group pull-left" style="margin-top: 5%" *ngIf="updateMessage">
+      <span class="col-md-12">{{updateMessage}}</span>
+    </div>
+  </modal-content>
+  <modal-footer>
+
+    <button class=" btn btn-primary " [disabled]="!userlistModel || userlistModel?.length==0 " (click)="usersToVideo() ">Share</button>
+    <button class="btn btn-primary " (click)="assignVideoModal.close() ">Cancel</button>
+
+
+  </modal-footer>
+</modal>

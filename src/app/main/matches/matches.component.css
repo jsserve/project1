@@ -1,0 +1,42 @@
+.main-part{
+    max-width: 980px;
+    width: 100%;
+    margin: auto;
+    margin-top: 100px;
+    background: white;
+    padding: 30px;
+}
+
+ul.list-inline.matches{
+    border-bottom: 1px solid gray;
+}
+
+ul.list-inline.matches>li{
+    padding-left: 40px;
+
+    padding-bottom: 15px;
+    max-width: 220px;
+    width: 100%;
+}
+
+ul.list-inline.matches>li img{
+    max-width: 32px;
+    width: 100%;
+}
+
+ul.list-inline.matches.header{
+    font-size: 14px;
+}
+
+ul.list-inline.matches{
+    font-size: 12px;
+}
+
+.scroll-matches{
+    max-height: 600px;
+}
+
+.main-part div.heading{
+    padding-left: 30px;
+    padding-bottom: 30px;
+}

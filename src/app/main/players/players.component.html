@@ -1,0 +1,45 @@
+<div class="container" style="margin-top:10px;">
+  <h3>Players</h3>
+  <ngx-datatable #activetable class="material" [columnMode]="'force'" [rows]="usersList">
+        <ngx-datatable-column name="Email" prop="email"> </ngx-datatable-column>
+        <ngx-datatable-column name="First Name" prop="firstName"> </ngx-datatable-column>
+        <ngx-datatable-column name="Last Name" prop="lastName"> </ngx-datatable-column>
+        <ngx-datatable-column name="Club">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.club[0].name}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Team(s)" prop="teams"> </ngx-datatable-column>
+        <ngx-datatable-column name="Club Function" prop="clubFunction"> </ngx-datatable-column>
+        <ngx-datatable-column name="Phone Number" prop="phone"> </ngx-datatable-column>
+        <ngx-datatable-column name="Role">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span *ngIf="row.coach">Coach</span>
+            <span *ngIf="!row.coach">Player</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Active">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span *ngIf="row.activate">Yes</span>
+            <span *ngIf="!row.activate">No</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+</div>
+
+<modal #ErrorModal class="error-modal">
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{errormsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="ErrorModal.close()">Ok</button>
+  </modal-footer>
+</modal>

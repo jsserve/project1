@@ -1,0 +1,74 @@
+<div class="loginOverLay" *ngIf="showProgressBar">
+  <div>
+    <img src="../../assets/images/default.gif" />
+  </div>
+</div>
+
+<div class="container" style="margin-top:10px;">
+  <h3>Playlist</h3>
+  <ngx-datatable class="material" [columnMode]="'force'" [rows]="playList" [rowHeight]="40">
+    <ngx-datatable-column name="Name">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Club" prop="user.club">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Created By">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.user.firstName}} {{row.user.lastName}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Action">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <i class="fa fa-eye text-info btn btn-default" *ngIf="row.playdata.length > 0" [routerLink]="['/backoffice/playlist/view',row._id]"
+          aria-hidden="true"></i>
+        <i class="btn btn-default fa fa-share-alt fa-lg text-success" aria-hidden="true" (click)="assignUser(row._id)"></i>
+        <i class="btn btn-default fa fa-trash fa-lg text-danger" aria-hidden="true" (click)="deletePlaylist(row._id)"></i>
+
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<modal #updatePlaylistModal class="error-modal">
+  <modal-header>
+  </modal-header>
+  <modal-content>
+    <p>
+      Share Playlist
+    </p>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label">Users</label>
+      <ss-multiselect-dropdown class="col-md-5" [options]="userlistOptions" [texts]="userlistTexts" [settings]="userlistSettings"
+        [(ngModel)]="userlistModel"></ss-multiselect-dropdown>
+    </div>
+
+
+
+    <div class="form-group pull-left" style="margin-top: 5%" *ngIf="updateMessage">
+      <span class="col-md-12">{{updateMessage}}</span>
+    </div>
+  </modal-content>
+  <modal-footer>
+
+    <button class=" btn btn-primary " [disabled]="!userlistModel || userlistModel?.length==0 " (click)="usersToPlaylist() ">Share</button>
+    <button class="btn btn-primary " (click)="updatePlaylistModal.close() ">Cancel</button>
+
+
+  </modal-footer>
+</modal>
+<modal #SucessModal>
+  <modal-header>
+
+  </modal-header>
+  <modal-content>
+    <p>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p>
+      {{successmsg}}
+    </p>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="SucessModal.close()">Ok</button>
+  </modal-footer>
+</modal>
